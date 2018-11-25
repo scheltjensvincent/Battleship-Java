@@ -64,3 +64,6 @@ PRELIMINARIES
     Making moves
     Winning and Losing
     General handler class with the main function
+    
+    
+    Test for commit initiated in Eclipse
