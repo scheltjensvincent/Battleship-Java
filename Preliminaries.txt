@@ -1,6 +1,6 @@
 PRELIMINARIES
 
-  Setup:
+//Setup
 
     Board
       - 10x10
@@ -64,6 +64,37 @@ PRELIMINARIES
     Making moves
     Winning and Losing
     General handler class with the main function
-    
-    
-    Test for commit initiated in Eclipse
+
+//Minimal Requirements (you may go above and beyond!):
+
+  • A grid of tiles which can contain one of several things:
+    o Terrain (e.g. blinding spot lights, slippery dance floor): terrain tiles may
+      influence your player positively or negatively (e.g. when challenging a Juror
+      near a slippery dance floor, the player’s dance skills are temporarily
+      decreased)
+    o Opponents (e.g. jurors and stars): overcoming opponents should be evaluated
+      based on your player’s skills and should include some random element (e.g. a
+      Juror has a random threshold which a player’s dancing skills should be above,
+      in order to impress that Juror)
+    o Prize (e.g. trophy): there should be some minimum requirements the player
+      must meet before they can claim the prize
+    o The tiles should be randomly assigned for each new game.
+
+  • Difficulty Levels:
+    o You should offer different difficulty levels for the user to choose. The levels
+      should make the game harder or easier, but how they actually impact it is up to
+      you, (e.g. higher difficulty level results in a larger game board and less energy)
+
+  • Visibility:
+    o Only a specific radius of tiles around the Player is visible at any time
+
+  • Your Player:
+    o Players should have skill attributes (which can be chosen by the user and also
+      impacted by game play, e.g. winning a dance off allows the player to gain
+      looks or dancing skills)
+    o Players have energy (or some similar measure); the game is lost when this
+      runs out
+    o Players can move from tile to tile, which costs some energy
+  • High Scores:
+    o You should keep track of high scores even when the game is closed, so that
+      next time you play, your score is compared against the existing high scores.
