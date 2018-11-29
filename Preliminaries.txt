@@ -15,6 +15,7 @@ PRELIMINARIES
       - Keep track of where ships are placed in an array
       - Not 100% sure whether it is necessary to create ship objects.
         -> just create coordinates and use these in combination with the board
+        //not the solution we are looking for but works
         -> e.g. board[x][y] = 1;
                 board[x + 1][y] = 1;
                 board[x][y + 1] = 1;
