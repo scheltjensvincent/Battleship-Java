@@ -33,6 +33,7 @@ public class Board {
 	
 	//niet ok || locaties zouden beter worden weergegeven en opgehaald op een andere manier, 
 	//dit is nogal omslachtig en wordt later te complex / onoverzichtelijk
+	//blijkbaar ook volledig UI logic en Game Logic apart houden, dus geen enekele UI Component mag hier gebruikt worden?
 	public JButton getCell(int x, int y) { 
 		return board[x][y];
 	}
