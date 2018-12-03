@@ -11,7 +11,8 @@ public class Pane extends JPanel {
 	private JButton btnRestart;
 	private JLabel lblCompScore; 
 	private JLabel lblPlayerScore;
-	private JLabel titleOfGame;
+	private JLabel titleOfGame; //misschien overbodig gezien titel in JFrame ook staat
+	
 	
 	public Pane() {
 		
@@ -20,8 +21,8 @@ public class Pane extends JPanel {
 		GridBagConstraints paneConstraints = new GridBagConstraints();
 		
 		//create grids
-		GameBoard computerPanel = createGrid(10);
-		GameBoard humanPanel = createGrid(10);
+		GameBoard computerPanel = GameBoard.createGrid(10, 10);
+		GameBoard humanPanel = GameBoard.createGrid(10, 10);
 		
 		//create buttons
 		btnStop = new JButton("Stop");
@@ -74,34 +75,6 @@ public class Pane extends JPanel {
 		paneConstraints.insets = new Insets(0,20,0,0);  
 		add(lblPlayerScore, paneConstraints);
 		
-	}
-	
-	private static GameBoard createGrid(int BoardSize) {
-		
-		JButton[][] btnList = new JButton[BoardSize][BoardSize];
-		JPanel board = new JPanel();
-		board.setLayout(new GridLayout(BoardSize, BoardSize));
-		
-		for (int i = 0; i < BoardSize; i++) {
-			for (int j = 0; j < BoardSize; j++) {
-				JButton btn = new JButton(i + ", " + j);
-				btn.setPreferredSize(new Dimension(40,40));
-				btn.setOpaque(true);
-				btn.setBackground(Color.gray);
-				btn.setContentAreaFilled(false);
-				
-				// Probleem: door onderstaande border aan te maken kan je precies niet meer op de knop klikken?
-				//Antwoord: je overschrijft het standaard effect van een aanklikbare JButton, de actie wordt nog wel waargenomen maar niet visueel weergegeven. 
-				btn.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createLineBorder(Color.gray, 5)));
-				btnList[i][j] = btn;
-				board.add(btn);
-				
-			}
-		}
-		
-		GameBoard objBoard = new GameBoard(board, btnList);
-		
-		return objBoard;
 	}
 
 }

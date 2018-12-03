@@ -13,7 +13,6 @@ public class Battleship {
 		mainFrame.setResizable(false);
 		mainFrame.pack();
 		mainFrame.setVisible(true);
-		
 	}
 
 }
