@@ -38,8 +38,8 @@ public class Pane extends JPanel {
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			humanPanel.startBoard();
-			computerPanel.board.setVisible(true);
-			humanPanel.board.setVisible(true);
+			computerPanel.getBoard().setVisible(true);
+			humanPanel.getBoard().setVisible(true);
 			lblDivider.setVisible(true);
 			lblCompScore.setVisible(true);
 			lblPlayerScore.setVisible(true);
@@ -82,8 +82,8 @@ public class Pane extends JPanel {
 		
 		paneConstraints.gridx = 0;
 		paneConstraints.gridy = 1;
-		add(computerPanel.board, paneConstraints);
-		computerPanel.board.setVisible(false);
+		add(computerPanel.getBoard(), paneConstraints);
+		computerPanel.getBoard().setVisible(false);
 		
 		paneConstraints.gridx = 0;
 		paneConstraints.gridy = 2;
@@ -93,8 +93,8 @@ public class Pane extends JPanel {
 		
 		paneConstraints.gridx = 0;
 		paneConstraints.gridy = 3;
-		add(humanPanel.board, paneConstraints);
-		humanPanel.board.setVisible(false);
+		add(humanPanel.getBoard(), paneConstraints);
+		humanPanel.getBoard().setVisible(false);
 		
 		//fill the second column with the scores and options
 		paneConstraints.gridx = 1;
