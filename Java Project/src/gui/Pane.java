@@ -1,12 +1,15 @@
 package gui;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.*;
 import java.util.*;
 
 public class Pane extends JPanel {
 	
 	private JLabel lblDivider;
+	private JButton btnStart;
 	private JButton btnStop;
 	private JButton btnRestart;
 	private JLabel lblCompScore; 
@@ -17,7 +20,7 @@ public class Pane extends JPanel {
 	public Pane() {
 		
 		setLayout(new GridBagLayout());
-		setPreferredSize(new Dimension(700, 1000));
+		setPreferredSize(new Dimension(700, 800));
 		GridBagConstraints paneConstraints = new GridBagConstraints();
 		
 		//create grids
@@ -26,9 +29,24 @@ public class Pane extends JPanel {
 		
 		computerPanel.addComputerEventListeners(computerPanel.btnList);
 		
+		
 		//create buttons
+		btnStart = new JButton("Start");
 		btnStop = new JButton("Stop");
 		btnRestart = new JButton("Restart");
+		
+		btnStart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			humanPanel.startBoard();
+			}	
+		});
+		
+		btnRestart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			humanPanel.resetBoard();
+			computerPanel.resetBoard();
+			}	
+		});
 		
 		//create labels
 		lblCompScore = new JLabel("Computer Score: "); //definieer een variabele compScore en voeg + compScore toe
@@ -66,9 +84,14 @@ public class Pane extends JPanel {
 
 		paneConstraints.gridx = 1;
 		paneConstraints.gridy = 2;
+		add(btnStart, paneConstraints);
+				
+		
+		paneConstraints.gridx = 2;
+		paneConstraints.gridy = 2;
 		add(btnRestart, paneConstraints);
 				
-		paneConstraints.gridx = 2;
+		paneConstraints.gridx = 3;
 		paneConstraints.gridy = 2;
 		add(btnStop, paneConstraints);
 		
