@@ -49,7 +49,13 @@ public class GameBoard {
 		return btnList[i][j];
 	}
 	
-	
+	public void addComputerEventListeners(JButton[][] btnList) {
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				btnList[i][j].addActionListener(new buttonListener());
+			}
+		}
+	}
 }
 	
 	

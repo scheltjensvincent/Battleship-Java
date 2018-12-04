@@ -24,8 +24,7 @@ public class Pane extends JPanel {
 		GameBoard computerPanel = GameBoard.createGrid(10, 10);
 		GameBoard humanPanel = GameBoard.createGrid(10, 10);
 		
-		computerPanel.btnList[1][1].addActionListener(new buttonListener());
-	
+		computerPanel.addComputerEventListeners(computerPanel.btnList);
 		
 		//create buttons
 		btnStop = new JButton("Stop");
