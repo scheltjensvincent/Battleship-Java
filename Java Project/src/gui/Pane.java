@@ -27,7 +27,7 @@ public class Pane extends JPanel {
 		//create grids
 		GameBoard computerPanel = GameBoard.createGrid(10, 10);
 		GameBoard humanPanel = GameBoard.createGrid(10, 10);
-		computerPanel.addComputerEventListeners(computerPanel.btnList);
+		computerPanel.addComputerEventListeners();
 		
 		
 		//create buttons
