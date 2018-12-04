@@ -36,6 +36,7 @@ public class GameBoard {
 					btnList[i][j].setBackground(Color.gray);
 					//btnList[i][j].setContentAreaFilled(false);
 					
+					
 					btnList[i][j].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createLineBorder(Color.gray, 3)));
 					
 					board.add(btnList[i][j]);
@@ -48,9 +49,9 @@ public class GameBoard {
 			
 	}
 	
-	public JButton getLocation(int i, int j) {
-		return btnList[i][j];
-	}
+	//public JButton getLocation(int i, int j) {
+	//	return btnList[i][j];
+	//}
 	
 	public void addComputerEventListeners() {
 		for (int i = 0; i < 10; i++) {

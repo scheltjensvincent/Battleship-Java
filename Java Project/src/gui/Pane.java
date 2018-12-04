@@ -14,7 +14,7 @@ public class Pane extends JPanel {
 	private JButton btnRestart;
 	private JLabel lblCompScore; 
 	private JLabel lblPlayerScore;
-	private JLabel titleOfGame; //misschien overbodig gezien titel in JFrame ook staat
+	private JLabel welcomeOfGame; //misschien overbodig gezien titel in JFrame ook staat
 	
 	
 	public Pane() {
@@ -22,13 +22,13 @@ public class Pane extends JPanel {
 		setLayout(new GridBagLayout());
 		setPreferredSize(new Dimension(700, 800));
 		GridBagConstraints paneConstraints = new GridBagConstraints();
+		//setVisible(false);
 		
 		//create grids
 		GameBoard computerPanel = GameBoard.createGrid(10, 10);
 		GameBoard humanPanel = GameBoard.createGrid(10, 10);
+		computerPanel.addComputerEventListeners(computerPanel.btnList);
 		
-		computerPanel.addComputerEventListeners();
-		//humanPanel.addHumanEventListeners();
 		
 		//create buttons
 		btnStart = new JButton("Start");
@@ -38,6 +38,15 @@ public class Pane extends JPanel {
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			humanPanel.startBoard();
+			computerPanel.board.setVisible(true);
+			humanPanel.board.setVisible(true);
+			lblDivider.setVisible(true);
+			lblCompScore.setVisible(true);
+			lblPlayerScore.setVisible(true);
+			btnRestart.setVisible(true);
+			btnStop.setVisible(true);
+			btnStart.setVisible(false);
+			welcomeOfGame.setVisible(false);
 			}	
 		});
 		
@@ -48,10 +57,18 @@ public class Pane extends JPanel {
 			}	
 		});
 		
+		btnStop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			System.exit(0);
+			}	
+		});
+		
+		
+		
 		//create labels
 		lblCompScore = new JLabel("Computer Score: "); //definieer een variabele compScore en voeg + compScore toe
 		lblPlayerScore = new JLabel("Your Score: "); //definieer een variabele playerScore en voeg + playerScore toe
-		titleOfGame = new JLabel("Battleship");
+		welcomeOfGame = new JLabel("Welcome to the Battleship game, hit start to play!");
 		
 		//create divider
 		lblDivider = new JLabel(" ");
@@ -61,44 +78,51 @@ public class Pane extends JPanel {
 		//fill in the first column with the boards and divider
 		paneConstraints.gridx = 0;
 		paneConstraints.gridy = 0;
-		add(titleOfGame, paneConstraints);
+		add(welcomeOfGame, paneConstraints);
 		
 		paneConstraints.gridx = 0;
 		paneConstraints.gridy = 1;
 		add(computerPanel.board, paneConstraints);
+		computerPanel.board.setVisible(false);
 		
 		paneConstraints.gridx = 0;
 		paneConstraints.gridy = 2;
 		paneConstraints.fill = GridBagConstraints.HORIZONTAL;
 		add(lblDivider, paneConstraints);
+		lblDivider.setVisible(false);
 		
 		paneConstraints.gridx = 0;
 		paneConstraints.gridy = 3;
 		add(humanPanel.board, paneConstraints);
+		humanPanel.board.setVisible(false);
 		
 		//fill the second column with the scores and options
 		paneConstraints.gridx = 1;
 		paneConstraints.gridy = 1;
 		paneConstraints.insets = new Insets(0,20,0,0);  
 		add(lblCompScore, paneConstraints);
+		lblCompScore.setVisible(false);
 
 		paneConstraints.gridx = 1;
-		paneConstraints.gridy = 2;
+		paneConstraints.gridy = 0;
 		add(btnStart, paneConstraints);
 				
 		
-		paneConstraints.gridx = 2;
+		paneConstraints.gridx = 1;
 		paneConstraints.gridy = 2;
 		add(btnRestart, paneConstraints);
-				
-		paneConstraints.gridx = 3;
+		btnRestart.setVisible(false);
+		
+		paneConstraints.gridx = 2;
 		paneConstraints.gridy = 2;
 		add(btnStop, paneConstraints);
+		btnStop.setVisible(false);
 		
 		paneConstraints.gridx = 1;
 		paneConstraints.gridy = 3;
 		paneConstraints.insets = new Insets(0,20,0,0);  
 		add(lblPlayerScore, paneConstraints);
+		lblPlayerScore.setVisible(false);
 		
 	}
 
