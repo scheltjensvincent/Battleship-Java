@@ -11,10 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 public class GameBoard {
-	JPanel board;
-	JButton[][] btnList;
+	public JPanel board;
+	public JButton[][] btnList;
 	
 	public GameBoard(JPanel board, JButton[][] btnList) {
 		this.board = board;
@@ -51,30 +52,49 @@ public class GameBoard {
 		return btnList[i][j];
 	}
 	
-	public void addComputerEventListeners(JButton[][] btnList) {
+	public void addComputerEventListeners() {
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				btnList[i][j].addActionListener(new buttonListener());
+				btnList[i][j].addActionListener(new ButtonListener());
 			}
 		}
 	}
+	
+	/*public void addHumanEventListeners() {
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				btnList[i][j].addActionListener(new BoatButtonListener());
+			}
+		}
+	} */
 	
 	public void startBoard() {
 		String name = askName();
 		String welcome = "Welcome " + name + "! \n" + "Before we can start you'll first have to place your boats.";
 		JOptionPane.showMessageDialog(null, welcome);
-		
+		setBoats();
 	}
 	
 	private String askName() {
 		String name = JOptionPane.showInputDialog("What is your name?");
 		
-		return name; 
+		return name;
 	}
 	
 	private void placeBoats() {
+		JOptionPane.showMessageDialog(null, "First boat: 5 blocks");
 		
+		
+		//GlassPane myGlassPane = new GlassPane();
+			
 	}
+	
+	public static void setBoats() {
+		for (int i = 0; i < 4; i++ ) {
+			//btnList[i][0] = new JButton();
+		}
+	}
+
 	
 	public void resetBoard() {
 		
