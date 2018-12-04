@@ -2,7 +2,7 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-//import java.util.*;
+import java.util.*;
 
 public class Pane extends JPanel {
 	
@@ -23,6 +23,9 @@ public class Pane extends JPanel {
 		//create grids
 		GameBoard computerPanel = GameBoard.createGrid(10, 10);
 		GameBoard humanPanel = GameBoard.createGrid(10, 10);
+		
+		computerPanel.btnList[1][1].addActionListener(new buttonListener());
+	
 		
 		//create buttons
 		btnStop = new JButton("Stop");
