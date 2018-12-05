@@ -30,7 +30,7 @@ public class GameBoard {
 			
 			for (int i = 0; i < row; i++) {
 				for (int j = 0; j < col; j++) {
-					tempBtnList[i][j] = new JButton(i + ", " + j);
+					tempBtnList[i][j] = new JButton(i + "" + j );
 					tempBtnList[i][j].setPreferredSize(new Dimension(40,40));
 					tempBtnList[i][j].setOpaque(true);
 					tempBtnList[i][j].setBackground(Color.gray);
@@ -49,9 +49,6 @@ public class GameBoard {
 			
 	}
 	
-	public JButton getLocation(int i, int j) {
-		return btnList[i][j];
-	}
 	
 	public void addComputerEventListeners() {
 		for (int i = 0; i < 10; i++) {
@@ -73,7 +70,7 @@ public class GameBoard {
 		String name = askName();
 		String welcome = "Welcome " + name + "! \n" + "Before we can start you'll first have to place your boats.";
 		JOptionPane.showMessageDialog(null, welcome);
-		placeBoats();
+		//placeBoats();
 	}
 	
 	private String askName() {
@@ -81,20 +78,19 @@ public class GameBoard {
 		
 		return name;
 	}
-	
+	/*
 	private void placeBoats() {
 		JOptionPane.showMessageDialog(null, "First boat: 5 blocks");
-		
-		
-		//GlassPane myGlassPane = new GlassPane();
+		JOptionPane.showInputDialog(null, new JLabel("Enter the coordinates"));	
+		GlassPane myGlassPane = new GlassPane();
 			
-	}
+	} */
 	
-	public static void setBoats() {
+	/* public static void setBoats() {
 		for (int i = 0; i < 4; i++ ) {
 			//btnList[i][0] = new JButton();
 		}
-	}
+	} */
 
 	
 	public void resetBoard() {
@@ -116,9 +112,28 @@ public class GameBoard {
 	public void setBtnList(JButton[][] list) {
 		this.btnList = list;
 	}
+	
+	//sets the JButton Color of a JButton to blue for where a ship is.
+	public void setBtnColor(int cell) { 
+		int i = Integer.parseInt(Integer.toString(cell).substring(0, 1)); //gets the first digit
+		int j = Integer.parseInt(Integer.toString(cell).substring(1)); //gets the second digit
+		btnList[i][j].setBackground(Color.blue);
+		
+		// link int a to the coordinates of a JButton
+		// this is used in the setShips method
+	}
+	
+	public static void addShipLocation(int a) {
+		//define that the locations should be added to some list array or something similar to  the JButton Array
+	}
+		
+		
+		
+		
+		
 }
 	
-//JOptionPane.showMessageDialog(null, new JLabel("enter the coordinates"));	
+
 	
 	
 	

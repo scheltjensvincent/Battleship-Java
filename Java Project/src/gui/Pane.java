@@ -14,7 +14,7 @@ public class Pane extends JPanel {
 	private JButton btnRestart;
 	private JLabel lblCompScore; 
 	private JLabel lblPlayerScore;
-	private JLabel welcomeOfGame; //misschien overbodig gezien titel in JFrame ook staat
+	private JLabel welcomeOfGame; 
 	
 	
 	public Pane() {
@@ -123,6 +123,12 @@ public class Pane extends JPanel {
 		paneConstraints.insets = new Insets(0,20,0,0);  
 		add(lblPlayerScore, paneConstraints);
 		lblPlayerScore.setVisible(false);
+		
+	}
+	
+	public void hideBoards(boolean a) {
+		
+		
 		
 	}
 
