@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import gameLogic.Ships;
+
 public class GameBoard {
 	private JPanel board;
 	private JButton[][] btnList;
@@ -34,11 +36,7 @@ public class GameBoard {
 					tempBtnList[i][j].setPreferredSize(new Dimension(40,40));
 					tempBtnList[i][j].setOpaque(true);
 					tempBtnList[i][j].setBackground(Color.gray);
-					//btnList[i][j].setContentAreaFilled(false);
-					
-					
 					tempBtnList[i][j].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createLineBorder(Color.gray, 3)));
-					
 					tempBoard.add(tempBtnList[i][j]);
 					
 				}
@@ -58,18 +56,21 @@ public class GameBoard {
 		}
 	}
 	
-	/*public void addHumanEventListeners() {
+	/*
+	public void addHumanEventListeners() {
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				btnList[i][j].addActionListener(new BoatButtonListener());
 			}
 		}
-	} */
+	} 
+	*/
 	
 	public void startBoard() {
 		String name = askName();
 		String welcome = "Welcome " + name + "! \n" + "Before we can start you'll first have to place your boats.";
 		JOptionPane.showMessageDialog(null, welcome);
+		initShips();
 		//placeBoats();
 	}
 	
@@ -84,13 +85,16 @@ public class GameBoard {
 		JOptionPane.showInputDialog(null, new JLabel("Enter the coordinates"));	
 		GlassPane myGlassPane = new GlassPane();
 			
-	} */
+	} 
+	*/
 	
-	/* public static void setBoats() {
+	/* 
+	public static void setBoats() {
 		for (int i = 0; i < 4; i++ ) {
 			//btnList[i][0] = new JButton();
 		}
-	} */
+	} 
+	*/
 
 	
 	public void resetBoard() {
@@ -123,13 +127,42 @@ public class GameBoard {
 		// this is used in the setShips method
 	}
 	
+	public void setLblColor(int cell) { 
+		int i = Integer.parseInt(Integer.toString(cell).substring(0, 1)); //gets the first digit
+		int j = Integer.parseInt(Integer.toString(cell).substring(1)); //gets the second digit
+		btnList[i][j].setForeground(Color.white);
+	}
+	
 	public static void addShipLocation(int a) {
 		//define that the locations should be added to some list array or something similar to  the JButton Array
 	}
+	
+	public void initShips() { // should be in the ships classand placeShip as well
+		int shipsOnBoard = 0;
+		while(shipsOnBoard != 5) {
+			for(int i = 5; i > 0; i--) {
+				int length = i;
+				int nrShip = 6 - i;
+				JOptionPane.showMessageDialog(null, "Ship " + nrShip +  " exists out of: "  + length + " blocks");
+				int initLoc = Ships.getInitialCell();
+				//String[] direction = Ships.getRotation();
+				placeShip(initLoc,length); // input rotation here
+				shipsOnBoard++;	
+			}
+		}
 		
-		
-		
-		
+	}
+	
+	public void placeShip(int cell, int length) { //add direction functionality
+		//cell = getInitialCell();
+		//if(direction.equals("right"){						//direction set to the right, define this 3 times more
+		for(int i = 0; i < length; i++) {
+			setBtnColor(cell + i);
+			setLblColor(cell + i );
+			addShipLocation(cell + i);  //in GameBoard define a method to write the location of the ship to an array/arraylist
+															// it should be comparable to the JButtons that are clicked on by the user
+			}
+	} 
 		
 }
 	
