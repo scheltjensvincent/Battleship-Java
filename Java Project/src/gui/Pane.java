@@ -49,7 +49,7 @@ public class Pane extends JPanel {
 			btnStop.setEnabled(false);
 			btnStart.setVisible(false);
 			welcomeOfGame.setVisible(false);
-			//humanPanel.startBoard(1);
+			humanPanel.startBoard(1);
 			computerPanel.startBoard(0);
 			btnStop.setEnabled(true);
 			btnRestart.setEnabled(true);
