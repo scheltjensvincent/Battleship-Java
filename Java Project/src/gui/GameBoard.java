@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+
+import java.util.Random;
+
+import gameLogic.Ships;
 
 public class GameBoard {
 	private JPanel board;
@@ -29,16 +34,18 @@ public class GameBoard {
 			tempBoard.setLayout(new GridLayout(row, col));
 			
 			for (int i = 0; i < row; i++) {
+<<<<<<< HEAD
 				for (int j = 0; j < col; j++) {  
 					tempBtnList[i][j] = new JButton(i + ", " + j);
 					tempBtnList[i][j].setPreferredSize(new Dimension(40,40));
+=======
+				for (int j = 0; j < col; j++) {
+					tempBtnList[i][j] = new JButton(i + "" + j );
+					tempBtnList[i][j].setPreferredSize(new Dimension(100,100));
+>>>>>>> branch 'master' of https://github.com/scheltjensvincent/Battleship-Java.git
 					tempBtnList[i][j].setOpaque(true);
 					tempBtnList[i][j].setBackground(Color.gray);
-					//btnList[i][j].setContentAreaFilled(false);
-					
-					
 					tempBtnList[i][j].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createLineBorder(Color.gray, 3)));
-					
 					tempBoard.add(tempBtnList[i][j]);
 					
 				}
@@ -49,9 +56,6 @@ public class GameBoard {
 			
 	}
 	
-	public JButton getLocation(int i, int j) {
-		return btnList[i][j];
-	}
 	
 	public void addComputerEventListeners() {
 		for (int i = 0; i < 10; i++) {
@@ -61,19 +65,25 @@ public class GameBoard {
 		}
 	}
 	
-	/*public void addHumanEventListeners() {
+	/*
+	public void addHumanEventListeners() {
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				btnList[i][j].addActionListener(new BoatButtonListener());
 			}
 		}
-	} */
+	} 
+	*/
 	
-	public void startBoard() {
+	public void startBoard(int player) {
+		if(player == 1) {
 		String name = askName();
 		String welcome = "Welcome " + name + "! \n" + "Before we can start you'll first have to place your boats.";
 		JOptionPane.showMessageDialog(null, welcome);
-		placeBoats();
+		initShips(player);
+		} else {
+		initShips(player);
+		}
 	}
 	
 	private String askName() {
@@ -81,20 +91,22 @@ public class GameBoard {
 		
 		return name;
 	}
-	
+	/*
 	private void placeBoats() {
 		JOptionPane.showMessageDialog(null, "First boat: 5 blocks");
-		
-		
-		//GlassPane myGlassPane = new GlassPane();
+		JOptionPane.showInputDialog(null, new JLabel("Enter the coordinates"));	
+		GlassPane myGlassPane = new GlassPane();
 			
-	}
+	} 
+	*/
 	
+	/* 
 	public static void setBoats() {
 		for (int i = 0; i < 4; i++ ) {
 			//btnList[i][0] = new JButton();
 		}
-	}
+	} 
+	*/
 
 	
 	public void resetBoard() {
@@ -116,9 +128,121 @@ public class GameBoard {
 	public void setBtnList(JButton[][] list) {
 		this.btnList = list;
 	}
+	
+	//sets the JButton Color of a JButton to blue for where a ship is.
+	public void setBtnColor(int cell) { 
+		int i = Integer.parseInt(Integer.toString(cell).substring(0, 1)); //gets the first digit
+		int j = Integer.parseInt(Integer.toString(cell).substring(1)); //gets the second digit
+		btnList[i][j].setBackground(Color.blue);
+		
+		// link int a to the coordinates of a JButton
+		// this is used in the setShips method
+	}
+	
+	public void setLblColor(int cell) { 
+		int i = Integer.parseInt(Integer.toString(cell).substring(0, 1)); //gets the first digit
+		int j = Integer.parseInt(Integer.toString(cell).substring(1)); //gets the second digit
+		btnList[i][j].setForeground(Color.white);
+	}
+	
+	public static void addShipLocationP(int a) {
+		//define that the locations should be added to some list array or something similar to  the JButton Array
+	}
+	
+	public static void addShipLocationC(int a) {
+		//define that the locations should be added to some list array or something similar to  the JButton Array
+	}
+	
+	public void initShips(int player) { // should be in the ships class and placeShip as well
+		int shipsOnBoard = 0;
+		if(player == 1) {
+			while(shipsOnBoard != 5) {
+				for(int i = 5; i > 0; i--) {
+					int length = i;
+					int nrShip = 6 - i;
+					JOptionPane.showMessageDialog(null, "Ship " + nrShip +  " exists out of: "  + length + " blocks");
+					int initLoc = Ships.getInitialCell();
+					int direction = Ships.getDirection();
+					placeShip(initLoc,length, direction, player);
+					shipsOnBoard++;	
+				}
+			}
+		} else { 
+			while(shipsOnBoard != 5) {
+				for(int i = 5; i > 0; i--) {
+					int length = i;
+					int initLoc = getRandNum(0, 100);
+					int direction = getRandNum(1, 5);
+					placeShip(initLoc,length, direction, player);
+					shipsOnBoard++;	
+				}
+			}
+		}
+	}
+	
+	public void placeShip(int cell, int length, int direction, int player) {
+		if(direction == 1){						
+			for(int i = 0; i < length; i++) {
+				if(player == 1) {
+				setBtnColor(cell + i);
+				setLblColor(cell + i );
+				addShipLocationP(cell + i);  //in GameBoard define a method to write the location of the ship to an array/arraylist
+				} else {					//it should be comparable to the JButtons that are clicked on by the user
+				setBtnColor(cell + i);
+				setLblColor(cell + i );
+				addShipLocationC(cell + i);	
+				}
+			}
+		}
+		if(direction == 2){						
+			for(int i = 0; i < length; i++) {
+				if(player == 1) {
+				setBtnColor(cell - i);
+				setLblColor(cell - i );
+				addShipLocationP(cell - i); 
+				} else {
+				setBtnColor(cell - i);
+				setLblColor(cell - i );
+				addShipLocationC(cell - i); 
+				}
+			}					
+		}
+		if(direction == 3){						
+			for(int i = 0; i > (length * 10)* -1; i -= 10) {
+				if(player == 1) {
+				setBtnColor(cell + i);
+				setLblColor(cell + i );
+				addShipLocationP(cell + i); 
+				} else {
+				setBtnColor(cell + i);
+				setLblColor(cell + i );
+				addShipLocationC(cell + i);	
+				}
+			}					
+		}
+		if(direction == 4){						
+			for(int i = 0; i < length * 10 ; i += 10) {
+				if(player == 1) {
+				setBtnColor(cell + i);
+				setLblColor(cell + i );
+				addShipLocationP(cell + i);
+				} else {
+				setBtnColor(cell + i);
+				setLblColor(cell + i );
+				addShipLocationC(cell + i);	
+				}
+			}					
+		}
+	} 
+	
+	private static int getRandNum(int min, int max) {
+	Random r = new Random();
+	return r.nextInt((max - min) + 1) + min;
+	}
+	
 }
 	
-//JOptionPane.showMessageDialog(null, new JLabel("enter the coordinates"));	
+
 	
 	
 	

@@ -16,7 +16,6 @@ public class Battleship {
 		mainFrame.pack();
 		mainFrame.setVisible(true);
 		
-		
 	}
 
 }

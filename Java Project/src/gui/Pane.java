@@ -14,7 +14,7 @@ public class Pane extends JPanel {
 	private JButton btnRestart;
 	private JLabel lblCompScore; 
 	private JLabel lblPlayerScore;
-	private JLabel welcomeOfGame; //misschien overbodig gezien titel in JFrame ook staat
+	private JLabel welcomeOfGame; 
 	
 	
 	public Pane() {
@@ -22,7 +22,6 @@ public class Pane extends JPanel {
 		setLayout(new GridBagLayout());
 		setPreferredSize(new Dimension(700, 800));
 		GridBagConstraints paneConstraints = new GridBagConstraints();
-		//setVisible(false);
 		
 		//create grids
 		GameBoard computerPanel = GameBoard.createGrid(10, 10);
@@ -35,18 +34,27 @@ public class Pane extends JPanel {
 		btnStop = new JButton("Stop");
 		btnRestart = new JButton("Restart");
 		
+		//methods for the visibility and enabling should still be written
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			humanPanel.startBoard();
-			computerPanel.getBoard().setVisible(true);
 			humanPanel.getBoard().setVisible(true);
 			lblDivider.setVisible(true);
+			computerPanel.getBoard().setVisible(true);
+			computerPanel.getBoard().setEnabled(false);
 			lblCompScore.setVisible(true);
 			lblPlayerScore.setVisible(true);
 			btnRestart.setVisible(true);
+			btnRestart.setEnabled(false);
 			btnStop.setVisible(true);
+			btnStop.setEnabled(false);
 			btnStart.setVisible(false);
 			welcomeOfGame.setVisible(false);
+			humanPanel.startBoard(1);
+			computerPanel.startBoard(0);
+			btnStop.setEnabled(true);
+			btnRestart.setEnabled(true);
+			computerPanel.getBoard().setEnabled(true);
+			
 			}	
 		});
 		
@@ -125,5 +133,10 @@ public class Pane extends JPanel {
 		lblPlayerScore.setVisible(false);
 		
 	}
-
+	
 }
+
+
+
+
+
