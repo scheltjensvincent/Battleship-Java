@@ -34,15 +34,9 @@ public class GameBoard {
 			tempBoard.setLayout(new GridLayout(row, col));
 			
 			for (int i = 0; i < row; i++) {
-<<<<<<< HEAD
-				for (int j = 0; j < col; j++) {  
-					tempBtnList[i][j] = new JButton(i + ", " + j);
-					tempBtnList[i][j].setPreferredSize(new Dimension(40,40));
-=======
 				for (int j = 0; j < col; j++) {
 					tempBtnList[i][j] = new JButton(i + "" + j );
 					tempBtnList[i][j].setPreferredSize(new Dimension(100,100));
->>>>>>> branch 'master' of https://github.com/scheltjensvincent/Battleship-Java.git
 					tempBtnList[i][j].setOpaque(true);
 					tempBtnList[i][j].setBackground(Color.gray);
 					tempBtnList[i][j].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createLineBorder(Color.gray, 3)));
