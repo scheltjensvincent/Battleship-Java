@@ -29,7 +29,7 @@ public class GameBoard {
 			tempBoard.setLayout(new GridLayout(row, col));
 			
 			for (int i = 0; i < row; i++) {
-				for (int j = 0; j < col; j++) {
+				for (int j = 0; j < col; j++) {  
 					tempBtnList[i][j] = new JButton(i + ", " + j);
 					tempBtnList[i][j].setPreferredSize(new Dimension(40,40));
 					tempBtnList[i][j].setOpaque(true);
