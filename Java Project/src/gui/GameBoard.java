@@ -16,11 +16,10 @@ import javax.swing.KeyStroke;
 
 import java.util.Random;
 
-import gameLogic.Ships;
-
 public class GameBoard {
 	private JPanel board;
 	private JButton[][] btnList;
+
 	
 	public GameBoard(JPanel b, JButton[][] l) {
 		this.setBoard(b);
@@ -35,7 +34,7 @@ public class GameBoard {
 			
 			for (int i = 0; i < row; i++) {
 				for (int j = 0; j < col; j++) {
-					tempBtnList[i][j] = new JButton(i + "" + j );
+					tempBtnList[i][j] = new JButton((i) + "" + (j));
 					tempBtnList[i][j].setPreferredSize(new Dimension(100,100));
 					tempBtnList[i][j].setOpaque(true);
 					tempBtnList[i][j].setBackground(Color.gray);
@@ -59,24 +58,16 @@ public class GameBoard {
 		}
 	}
 	
-	/*
-	public void addHumanEventListeners() {
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
-				btnList[i][j].addActionListener(new BoatButtonListener());
-			}
-		}
-	} 
-	*/
 	
 	public void startBoard(int player) {
 		if(player == 1) {
-		String name = askName();
-		String welcome = "Welcome " + name + "! \n" + "Before we can start you'll first have to place your boats.";
-		JOptionPane.showMessageDialog(null, welcome);
-		initShips(player);
+			String name = askName();
+			String welcome = "Welcome " + name + "! \n" + "Before we can start you'll first have to place your boats.";
+			JOptionPane.showMessageDialog(null, welcome);
+			
+			initShips(player);
 		} else {
-		initShips(player);
+			initShips(player);
 		}
 	}
 	
@@ -85,52 +76,35 @@ public class GameBoard {
 		
 		return name;
 	}
-	/*
-	private void placeBoats() {
-		JOptionPane.showMessageDialog(null, "First boat: 5 blocks");
-		JOptionPane.showInputDialog(null, new JLabel("Enter the coordinates"));	
-		GlassPane myGlassPane = new GlassPane();
-			
-	} 
-	*/
-	
-	/* 
-	public static void setBoats() {
-		for (int i = 0; i < 4; i++ ) {
-			//btnList[i][0] = new JButton();
-		}
-	} 
-	*/
 
 	
 	public void resetBoard() {
 		
 	}
 	
-	public JPanel getBoard() {
-		return this.board;
-	}
-	
-	public JButton[][] getBtnList() {
-		return this.btnList;
-	}
-	
-	public void setBoard(JPanel panel) {
-		this.board = panel;
-	}
-	
-	public void setBtnList(JButton[][] list) {
-		this.btnList = list;
-	}
 	
 	//sets the JButton Color of a JButton to blue for where a ship is.
 	public void setBtnColor(int cell) { 
 		int i = Integer.parseInt(Integer.toString(cell).substring(0, 1)); //gets the first digit
 		int j = Integer.parseInt(Integer.toString(cell).substring(1)); //gets the second digit
+
+		
 		btnList[i][j].setBackground(Color.blue);
 		
 		// link int a to the coordinates of a JButton
 		// this is used in the setShips method
+		
+		/*
+		String strCell = Integer.toString(cell);
+		int i;
+		if (strCell.length() < 1) {
+			i = 0;
+		}
+		else {
+			i = Integer.parseInt(Integer.toString(cell).substring(0, 1)); //gets the first digit
+		}
+		int j = Integer.parseInt(strCell.substring(strCell.length() - 1)); //gets the second digit
+		 */
 	}
 	
 	public void setLblColor(int cell) { 
@@ -157,6 +131,7 @@ public class GameBoard {
 					JOptionPane.showMessageDialog(null, "Ship " + nrShip +  " exists out of: "  + length + " blocks");
 					int initLoc = Ships.getInitialCell();
 					int direction = Ships.getDirection();
+					// check constraints
 					placeShip(initLoc,length, direction, player);
 					shipsOnBoard++;	
 				}
@@ -230,8 +205,25 @@ public class GameBoard {
 	} 
 	
 	private static int getRandNum(int min, int max) {
-	Random r = new Random();
-	return r.nextInt((max - min) + 1) + min;
+		Random r = new Random();
+		return r.nextInt((max - min) + 1) + min;
+	}
+	
+	
+	public JPanel getBoard() {
+		return this.board;
+	}
+	
+	public JButton[][] getBtnList() {
+		return this.btnList;
+	}
+	
+	public void setBoard(JPanel panel) {
+		this.board = panel;
+	}
+	
+	public void setBtnList(JButton[][] list) {
+		this.btnList = list;
 	}
 	
 }

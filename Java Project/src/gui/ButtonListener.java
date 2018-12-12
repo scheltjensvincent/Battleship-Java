@@ -16,13 +16,3 @@ public class ButtonListener implements ActionListener{
 	}
 				
 }
-
-
-/*
-if (e.getSource() == btnList[i][j]) {
-	btnList[i][j].setBackground(Color.red);
-	btnList[i][j].setForeground(Color.white);
-	btnList[i][j].setOpaque(true);
-				
-}
-*/
