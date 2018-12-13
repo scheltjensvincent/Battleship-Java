@@ -58,8 +58,6 @@ public class Ships {
 	return direction;
 	}
 	
-	int[][] board = new int[9][9];
-	
 	// we first want to construct a shape based on the entered data, then we want to check whether the the ship can still
 	// be placed on the board
 	// ship: start_coordinate(X, Y) & end_coordinate(X,Y)
