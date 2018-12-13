@@ -59,7 +59,7 @@ public class Pane extends JPanel {
 				humanPanel.startBoard(1);
 				//computerPanel.startBoard(0);
 				btnStop.setEnabled(true);
-				//btnRestart.setEnabled(true);
+				btnRestart.setEnabled(true);
 				//computerPanel.getBoard().setEnabled(true);
 			
 			}	

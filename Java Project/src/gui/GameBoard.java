@@ -84,32 +84,35 @@ public class GameBoard {
 	
 	
 	//sets the JButton Color of a JButton to blue for where a ship is.
-	public void setBtnColor(int cell) { 
-		int i = Integer.parseInt(Integer.toString(cell).substring(0, 1)); //gets the first digit
-		int j = Integer.parseInt(Integer.toString(cell).substring(1)); //gets the second digit
-
-		
-		btnList[i][j].setBackground(Color.blue);
-		
-		// link int a to the coordinates of a JButton
-		// this is used in the setShips method
-		
-		/*
+	public void setBtnColor(int cell) { 		
 		String strCell = Integer.toString(cell);
 		int i;
-		if (strCell.length() < 1) {
+		int j;
+		if (cell < 10) {
 			i = 0;
+			j = Integer.parseInt(strCell);
+			
 		}
 		else {
 			i = Integer.parseInt(Integer.toString(cell).substring(0, 1)); //gets the first digit
-		}
-		int j = Integer.parseInt(strCell.substring(strCell.length() - 1)); //gets the second digit
-		 */
+			j = Integer.parseInt(strCell.substring(strCell.length() - 1));
+		}	
+		btnList[i][j].setBackground(Color.blue);
+		 
 	}
 	
-	public void setLblColor(int cell) { 
-		int i = Integer.parseInt(Integer.toString(cell).substring(0, 1)); //gets the first digit
-		int j = Integer.parseInt(Integer.toString(cell).substring(1)); //gets the second digit
+	public void setLblColor(int cell) { 		
+		String strCell = Integer.toString(cell);
+		int i;
+		int j;
+		if (cell < 10) {
+			i = 0;
+			j = Integer.parseInt(strCell);
+		}
+		else {
+			i = Integer.parseInt(Integer.toString(cell).substring(0, 1)); //gets the first digit
+			j = Integer.parseInt(strCell.substring(strCell.length() - 1));
+		}
 		btnList[i][j].setForeground(Color.white);
 	}
 	

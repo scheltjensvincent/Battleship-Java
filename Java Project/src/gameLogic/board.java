@@ -3,7 +3,8 @@ package gameLogic;
 import java.util.*;
 
 public class board {
-	private int[][] board = new int[9][9];
+	private final int BOARD_SIZE = 9;
+	private int[][] board = new int[BOARD_SIZE][BOARD_SIZE];
 	private int maxScore;
 	private int scoreOpponent;
 	
@@ -67,6 +68,14 @@ public class board {
 	}
 	
 	private boolean checkConstraints(Ship newShip) {
+		if (newShip.getEndco().get_row() > BOARD_SIZE) {
+			return false;
+		}
+		
+		if (newShip.getEndco().get_col() > BOARD_SIZE) {
+			return false;
+		}
+		
 		for (int i = newShip.getStartco().get_row(); i < newShip.getEndco().get_row(); i++) {
 			for (int j = newShip.getStartco().get_col(); j < newShip.getEndco().get_col(); j++) {
 					if (this.getBoard()[i][j] == 1) {
