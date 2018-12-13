@@ -9,9 +9,18 @@ public class Ship {
 
 	private String name;
 	
-	public Ship(String name, int startco_row, int startco_col, int endco_row, int endco_col) {	
-		this.setStartco(startco_row, startco_col);
-		this.setEndco(endco_row, endco_col);
+	public Ship() {
+		
+	}
+	
+	public Ship(Coordinates startCo, Coordinates endCo) {
+		this.setStartco(startCo);
+		this.setEndco(endCo);
+	}
+	
+	public Ship(String name, Coordinates startCo, Coordinates endCo) {	
+		this.setStartco(startCo);
+		this.setEndco(endCo);
 		this.setName(name);
 		
 		/*
@@ -21,18 +30,16 @@ public class Ship {
 			}
 		}
 		 */
-}	
+	}	
 	
 	
 	
-	public void setStartco(int row, int col) {
-		this.startco.set_row(row);
-		this.startco.set_col(col);
+	public void setStartco(Coordinates startCo) {
+		this.startco = startCo;
 	}
 	
-	public void setEndco(int row, int col) {
-		this.endco.set_row(row);
-		this.endco.set_col(col);
+	public void setEndco(Coordinates endCo) {
+		this.endco = endCo;
 	}
 	
 	public void setName(String name) {

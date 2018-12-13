@@ -2,8 +2,10 @@ package gui;
 
 import javax.swing.JOptionPane;
 
+import gameLogic.Coordinates;
+import gameLogic.Ship;
+
 public class Ships {
-	
 	public static int getInitialCell() { //instead of getting 1 value here, get the x and y values
 		int cellValue = 0;
 		boolean validPosition = false;
@@ -19,7 +21,7 @@ public class Ships {
 							JOptionPane.showMessageDialog(null, "Please Enter a positive and valid location ranging from 00 - 99");
 						}
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "Please Enter a Valid Loction!");
+					JOptionPane.showMessageDialog(null, "Please Enter a Valid Location!");
 					validPosition = false;
 				}
 			} else {
@@ -57,6 +59,47 @@ public class Ships {
 		}
 	return direction;
 	}
+	
+	public static Ship getOneShip(int length) {
+		Ship ship;
+		ship = new Ship();
+		
+		JOptionPane.showMessageDialog(null, "Ship " + " exists out of: "  + length + " blocks");
+		
+		Coordinates initialCo = Coordinates.parseIntoCoordinates(getInitialCell());
+		int direction = getDirection();
+		
+		Coordinates startCo = new Coordinates();
+		Coordinates endCo = new Coordinates();
+		
+		if(direction == 1){
+			ship.setStartco(initialCo);
+			endCo.set_row(initialCo.get_row());
+			endCo.set_col(initialCo.get_col() + length);
+			ship.setEndco(endCo);	
+		}
+		else if(direction == 2){
+			startCo.set_row(initialCo.get_row());
+			startCo.set_col(initialCo.get_col() - length);
+			ship.setStartco(startCo);
+			ship.setEndco(initialCo);;
+		}
+		else if(direction == 3){						
+			startCo.set_row(initialCo.get_row() - length);
+			startCo.set_col(initialCo.get_col());
+			ship.setStartco(startCo);
+			ship.setEndco(initialCo);
+		}
+		else if(direction == 4){
+			ship.setStartco(initialCo);
+			endCo.set_row(initialCo.get_row() + length);
+			endCo.set_col(initialCo.get_col());
+			ship.setEndco(endCo);
+		}
+		
+		return ship;
+	}
+	
 	
 	// we first want to construct a shape based on the entered data, then we want to check whether the the ship can still
 	// be placed on the board

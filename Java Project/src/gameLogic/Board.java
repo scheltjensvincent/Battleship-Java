@@ -2,7 +2,7 @@ package gameLogic;
 
 import java.util.*;
 
-public class board {
+public class Board {
 	private final int BOARD_SIZE = 9;
 	private int[][] board = new int[BOARD_SIZE][BOARD_SIZE];
 	private int maxScore;
@@ -16,7 +16,7 @@ public class board {
 	
 	ArrayList<Ship> ships = new ArrayList<Ship>();
 	
-	public board() {
+	public Board() {
 	
 	}
 	

@@ -1,6 +1,10 @@
 package gui;
 
 import javax.swing.*;
+
+import gameLogic.Ship;
+import gameLogic.*;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.*;
@@ -16,6 +20,8 @@ public class Pane extends JPanel {
 	private JLabel lblPlayerScore;
 	private JLabel welcomeOfGame; 
 	
+	private GameBoard computerPanel;
+	private GameBoard humanPanel;
 	
 	public Pane() {
 		
@@ -24,8 +30,8 @@ public class Pane extends JPanel {
 		GridBagConstraints paneConstraints = new GridBagConstraints();
 		
 		//create grids
-		GameBoard computerPanel = GameBoard.createGrid(10, 10);
-		GameBoard humanPanel = GameBoard.createGrid(10, 10);
+		computerPanel = GameBoard.createGrid(10, 10);
+		humanPanel = GameBoard.createGrid(10, 10);
 		computerPanel.addComputerEventListeners(); 
 		
 		
@@ -56,7 +62,8 @@ public class Pane extends JPanel {
 				
 				welcomeOfGame.setVisible(false);
 				
-				humanPanel.startBoard(1);
+				startProgram();
+				//humanPanel.startBoard(1);
 				//computerPanel.startBoard(0);
 				btnStop.setEnabled(true);
 				btnRestart.setEnabled(true);
@@ -139,6 +146,37 @@ public class Pane extends JPanel {
 		lblPlayerScore.setVisible(false);
 		
 	}
+	
+	public GameBoard getHumanPanel() {
+		return this.humanPanel;
+	}
+	
+	public GameBoard getComputerPanel() {
+		return this.computerPanel;
+	}
+	
+	private void startProgram() {
+		this.getHumanPanel().startBoard(1);
+		
+		Board humanBoard = new Board();
+		int[] shipSizes = new int[] {5, 4, 3, 3, 2};
+		
+		for (int i = 0; i < shipSizes.length; i++) {
+			Ship guiShip = Ships.getOneShip(shipSizes[i]);
+			boolean success = false;
+			
+			while(!success) {
+				if (humanBoard.addShip(guiShip) == true) {
+					//System.out.println("Ja " + i);
+					//System.out.println(guiShip.getStartco().get_row() + " " + guiShip.getStartco().get_col());
+					//System.out.println(guiShip.getEndco().get_row() + " " + guiShip.getEndco().get_col());
+					this.getHumanPanel().placeShipGuiBoard(guiShip);	
+					success = true;
+				}
+			}
+		}		
+	}
+	
 	
 }
 
