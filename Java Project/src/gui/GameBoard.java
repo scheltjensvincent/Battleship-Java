@@ -21,13 +21,16 @@ public class GameBoard {
 	private JPanel board;
 	private JButton[][] btnList;
 
+	public GameBoard() {
+		
+	}
 	
 	public GameBoard(JPanel b, JButton[][] l) {
 		this.setBoard(b);
 		this.setBtnList(l);
 	}
 	
-	public static GameBoard createGrid(int row, int col) {
+	public void createGrid(int row, int col) {
 			
 			JButton[][] tempBtnList = new JButton[row][col];
 			JPanel tempBoard = new JPanel();
@@ -45,16 +48,15 @@ public class GameBoard {
 				}
 			}
 			
-			GameBoard objBoard = new GameBoard(tempBoard, tempBtnList);
-			return objBoard;
-			
+			this.setBoard(tempBoard);
+			this.setBtnList(tempBtnList);
 	}
 	
 	
 	public void addComputerEventListeners() {
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				btnList[i][j].addActionListener(new ButtonListener());
+				this.getBtnList()[i][j].addActionListener(new ButtonListener());
 			}
 		}
 	}
@@ -86,12 +88,12 @@ public class GameBoard {
 	
 	//sets the JButton Color of a JButton to blue for where a ship is.
 	public void setBtnColor(int row, int col) { 		
-		btnList[row][col].setBackground(Color.blue);
+		this.getBtnList()[row][col].setBackground(Color.blue);
 		 
 	}
 	
 	public void setLblColor(int row, int col) { 		
-		btnList[row][row].setForeground(Color.white);
+		this.getBtnList()[row][row].setForeground(Color.white);
 	}
 	
 	public void placeShipGuiBoard(Ship ship) {
@@ -114,8 +116,7 @@ public class GameBoard {
 					int nrShip = 6 - i;
 					
 					//generate one ship 
-					
-
+		
 					shipsOnBoard++;	
 				}
 			}

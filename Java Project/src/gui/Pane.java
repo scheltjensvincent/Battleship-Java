@@ -20,8 +20,8 @@ public class Pane extends JPanel {
 	private JLabel lblPlayerScore;
 	private JLabel welcomeOfGame; 
 	
-	private GameBoard computerPanel;
-	private GameBoard humanPanel;
+	private GameBoard computerPanel = new GameBoard();
+	private GameBoard humanPanel = new GameBoard();
 	
 	public Pane() {
 		
@@ -30,8 +30,8 @@ public class Pane extends JPanel {
 		GridBagConstraints paneConstraints = new GridBagConstraints();
 		
 		//create grids
-		computerPanel = GameBoard.createGrid(10, 10);
-		humanPanel = GameBoard.createGrid(10, 10);
+		computerPanel.createGrid(10, 10);
+		humanPanel.createGrid(10, 10);
 		computerPanel.addComputerEventListeners(); 
 		
 		
@@ -47,7 +47,7 @@ public class Pane extends JPanel {
 				lblDivider.setVisible(true);
 				computerPanel.getBoard().setVisible(true);
 				
-				computerPanel.getBoard().setEnabled(false); //Dit werkt niet voor Panels, GlasPane gebruiken of recursive https://tips4java.wordpress.com/2009/08/02/disabled-panel/
+				//computerPanel.getBoard().setEnabled(false); //Dit werkt niet voor Panels, GlasPane gebruiken of recursive https://tips4java.wordpress.com/2009/08/02/disabled-panel/
 				
 				
 				lblCompScore.setVisible(true);
