@@ -4,7 +4,9 @@ import gameLogic.*;
 import gui.*;
 
 public class Game {
+	/*
 	private Board board = new Board();
+	 
 	private Board boardGUI = new Board();
 	
 	public Game() {
@@ -24,4 +26,5 @@ public class Game {
 		}		
 		
 	}
+	*/
 }

@@ -72,6 +72,8 @@ public class Ships {
 		Coordinates startCo = new Coordinates();
 		Coordinates endCo = new Coordinates();
 		
+		length--;
+		
 		if(direction == 1){
 			ship.setStartco(initialCo);
 			endCo.set_row(initialCo.get_row());
@@ -100,6 +102,7 @@ public class Ships {
 		return ship;
 	}
 	
+
 	
 	// we first want to construct a shape based on the entered data, then we want to check whether the the ship can still
 	// be placed on the board

@@ -12,6 +12,7 @@ import java.util.*;
 
 public class Pane extends JPanel {
 	
+	private final int BOARD_SIZE = 10;
 	private JLabel lblDivider;
 	private JButton btnStart;
 	private JButton btnStop;
@@ -20,8 +21,11 @@ public class Pane extends JPanel {
 	private JLabel lblPlayerScore;
 	private JLabel welcomeOfGame; 
 	
-	private GameBoard computerPanel = new GameBoard();
-	private GameBoard humanPanel = new GameBoard();
+	private GameBoard computerPanel = new GameBoard(BOARD_SIZE);
+	private GameBoard humanPanel = new GameBoard(BOARD_SIZE);
+	
+	private Board gameLogicHumanBoard = new Board(BOARD_SIZE);
+	private int[] shipSizes = new int[] {5, 4, 3, 3, 2};
 	
 	public Pane() {
 		
@@ -30,8 +34,8 @@ public class Pane extends JPanel {
 		GridBagConstraints paneConstraints = new GridBagConstraints();
 		
 		//create grids
-		computerPanel.createGrid(10, 10);
-		humanPanel.createGrid(10, 10);
+		computerPanel.createGrid();
+		humanPanel.createGrid();
 		computerPanel.addComputerEventListeners(); 
 		
 		
@@ -155,25 +159,32 @@ public class Pane extends JPanel {
 		return this.computerPanel;
 	}
 	
+	public Board getGameLogicHumanBoard() {
+		return this.gameLogicHumanBoard;
+	}
+	
+	public int[] getShipSizes() {
+		return this.shipSizes;
+	}
+	
 	private void startProgram() {
 		this.getHumanPanel().startBoard(1);
 		
-		Board humanBoard = new Board();
-		int[] shipSizes = new int[] {5, 4, 3, 3, 2};
-		
-		for (int i = 0; i < shipSizes.length; i++) {
-			Ship guiShip = Ships.getOneShip(shipSizes[i]);
-			boolean success = false;
+		for (int i = 0; i < this.getShipSizes().length; i++) {
+			boolean success;
 			
-			while(!success) {
-				if (humanBoard.addShip(guiShip) == true) {
-					//System.out.println("Ja " + i);
-					//System.out.println(guiShip.getStartco().get_row() + " " + guiShip.getStartco().get_col());
-					//System.out.println(guiShip.getEndco().get_row() + " " + guiShip.getEndco().get_col());
+			do {
+				Ship guiShip = Ships.getOneShip(shipSizes[i]);
+				if (this.getGameLogicHumanBoard().addShip(guiShip) == true) {
 					this.getHumanPanel().placeShipGuiBoard(guiShip);	
 					success = true;
 				}
-			}
+				else {
+					GameBoard.printError();
+					success = false;
+				}	
+			} while(!success);
+			
 		}		
 	}
 	

@@ -18,44 +18,49 @@ import java.util.Random;
 import gameLogic.*;
 
 public class GameBoard {
+	private final int BOARD_SIZE;
 	private JPanel board;
 	private JButton[][] btnList;
 
-	public GameBoard() {
-		
+	public GameBoard(int board_size) {
+		this.BOARD_SIZE = board_size;
+		this.setBoard(new JPanel());
+		this.getBoard().setLayout(new GridLayout(this.getBoardSize(), this.getBoardSize()));
+		this.setBtnList(new JButton[this.getBoardSize()][this.getBoardSize()]);
 	}
-	
-	public GameBoard(JPanel b, JButton[][] l) {
+	/*
+	public GameBoard(JPanel b, JButton[][] l, int board_size) {
 		this.setBoard(b);
 		this.setBtnList(l);
-	}
+		this.BOARD_SIZE = board_size;
+	}*/
 	
-	public void createGrid(int row, int col) {
+	public void createGrid() {
 			
-			JButton[][] tempBtnList = new JButton[row][col];
-			JPanel tempBoard = new JPanel();
-			tempBoard.setLayout(new GridLayout(row, col));
+			//JButton[][] tempBtnList = new JButton[this.getBoardSize() - 1][this.getBoardSize() - 1];
+			//JPanel tempBoard = new JPanel();
+			//tempBoard.setLayout(new GridLayout(row, col));
 			
-			for (int i = 0; i < row; i++) {
-				for (int j = 0; j < col; j++) {
-					tempBtnList[i][j] = new JButton((i) + "" + (j));
-					tempBtnList[i][j].setPreferredSize(new Dimension(100,100));
-					tempBtnList[i][j].setOpaque(true);
-					tempBtnList[i][j].setBackground(Color.gray);
-					tempBtnList[i][j].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createLineBorder(Color.gray, 3)));
-					tempBoard.add(tempBtnList[i][j]);
+			for (int i = 0; i < this.getBoardSize(); i++) {
+				for (int j = 0; j < this.getBoardSize(); j++) {
+					this.getBtnList()[i][j] = new JButton((i) + "" + (j));
+					this.getBtnList()[i][j].setPreferredSize(new Dimension(100,100));
+					this.getBtnList()[i][j].setOpaque(true);
+					this.getBtnList()[i][j].setBackground(Color.gray);
+					this.getBtnList()[i][j].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createLineBorder(Color.gray, 3)));
+					this.getBoard().add(this.getBtnList()[i][j]);
 					
 				}
 			}
 			
-			this.setBoard(tempBoard);
-			this.setBtnList(tempBtnList);
+			//this.setBoard(tempBoard);
+			//this.setBtnList(tempBtnList);
 	}
 	
 	
 	public void addComputerEventListeners() {
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = 0; i < this.getBoardSize(); i++) {
+			for (int j = 0; j < this.getBoardSize(); j++) {
 				this.getBtnList()[i][j].addActionListener(new ButtonListener());
 			}
 		}
@@ -67,19 +72,17 @@ public class GameBoard {
 			String name = askName();
 			String welcome = "Welcome " + name + "! \n" + "Before we can start you'll first have to place your boats.";
 			JOptionPane.showMessageDialog(null, welcome);
-			
-			//initShips(player);
-		} /*else {
-			initShips(player);
-		} */
+		}
 	}
 	
 	private String askName() {
 		String name = JOptionPane.showInputDialog("What is your name?");
-		
 		return name;
 	}
-
+	
+	public static void printError() {
+		JOptionPane.showMessageDialog(null, "The boat was not placed correctly, please choose another position.");
+	}
 	
 	public void resetBoard() {
 		
@@ -93,12 +96,12 @@ public class GameBoard {
 	}
 	
 	public void setLblColor(int row, int col) { 		
-		this.getBtnList()[row][row].setForeground(Color.white);
+		this.getBtnList()[row][col].setForeground(Color.white);
 	}
 	
 	public void placeShipGuiBoard(Ship ship) {
-		for (int i = ship.getStartco().get_row(); i < ship.getEndco().get_row(); i++) {
-			for (int j = ship.getStartco().get_col(); j < ship.getEndco().get_col(); j++) {
+		for (int i = ship.getStartco().get_row(); i <= ship.getEndco().get_row(); i++) {
+			for (int j = ship.getStartco().get_col(); j <= ship.getEndco().get_col(); j++) {
 				setBtnColor(i, j);
 				setLblColor(i, j);
 			}
@@ -145,6 +148,10 @@ public class GameBoard {
 	
 	public JButton[][] getBtnList() {
 		return this.btnList;
+	}
+	
+	public int getBoardSize() {
+		return this.BOARD_SIZE;
 	}
 	
 	public void setBoard(JPanel panel) {
