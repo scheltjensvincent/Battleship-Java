@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.*;
 import javax.swing.*;
 
+import gameLogic.Coordinates;
+
 
 public class ButtonListener implements ActionListener{
 	@Override 
@@ -13,6 +15,11 @@ public class ButtonListener implements ActionListener{
 		btn.setBackground(Color.red);
 		btn.setForeground(Color.white);
 		btn.setOpaque(true);
+		
+		btn.setEnabled(false);
+		
+		//Coordinates location = Coordinates.parseIntoCoordinates(Integer.parseInt(btn.getText()));
+		
 	}
 				
 }

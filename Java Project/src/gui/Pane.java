@@ -25,6 +25,7 @@ public class Pane extends JPanel {
 	private GameBoard humanPanel = new GameBoard(BOARD_SIZE);
 	
 	private Board gameLogicHumanBoard = new Board(BOARD_SIZE);
+	private Board gameLogicComputerBoard = new Board(BOARD_SIZE);
 	private int[] shipSizes = new int[] {5, 4, 3, 3, 2};
 	
 	public Pane() {
@@ -36,8 +37,6 @@ public class Pane extends JPanel {
 		//create grids
 		computerPanel.createGrid();
 		humanPanel.createGrid();
-		computerPanel.addComputerEventListeners(); 
-		
 		
 		//create buttons
 		btnStart = new JButton("Start");
@@ -51,9 +50,6 @@ public class Pane extends JPanel {
 				lblDivider.setVisible(true);
 				computerPanel.getBoard().setVisible(true);
 				
-				//computerPanel.getBoard().setEnabled(false); //Dit werkt niet voor Panels, GlasPane gebruiken of recursive https://tips4java.wordpress.com/2009/08/02/disabled-panel/
-				
-				
 				lblCompScore.setVisible(true);
 				lblPlayerScore.setVisible(true);
 				
@@ -65,14 +61,10 @@ public class Pane extends JPanel {
 				btnStop.setEnabled(false);
 				
 				welcomeOfGame.setVisible(false);
-				
-				startProgram();
-				//humanPanel.startBoard(1);
-				//computerPanel.startBoard(0);
 				btnStop.setEnabled(true);
 				btnRestart.setEnabled(true);
-				//computerPanel.getBoard().setEnabled(true);
-			
+				
+				startProgram();			
 			}	
 		});
 		
@@ -163,16 +155,49 @@ public class Pane extends JPanel {
 		return this.gameLogicHumanBoard;
 	}
 	
+	public Board getGameLogicComputerBoard() {
+		return this.gameLogicComputerBoard;
+	}
+	
 	public int[] getShipSizes() {
 		return this.shipSizes;
 	}
 	
 	private void startProgram() {
+		initializeGame();
+		this.getComputerPanel().addComputerEventListeners();
+		//put glass pane
+		
+
+		
+		startGame();
+	}
+	
+	private void startGame() {
+		boolean won = false;
+		do {
+			
+			
+			
+			
+			//remove glass pane
+		
+			//human starts -> can fire one shot
+			//put glass pane
+			//update score
+			//check whether the human has won
+		
+			//computer's turn -> can fire one shot
+			//update score
+			//check whether the computer has won
+		} while(!won);
+	}
+	
+	private void initializeGame() {
 		this.getHumanPanel().startBoard(1);
 		
 		for (int i = 0; i < this.getShipSizes().length; i++) {
-			boolean success;
-			
+			boolean success = false;	
 			do {
 				Ship guiShip = Ships.getOneShip(shipSizes[i]);
 				if (this.getGameLogicHumanBoard().addShip(guiShip) == true) {
@@ -181,13 +206,22 @@ public class Pane extends JPanel {
 				}
 				else {
 					GameBoard.printError();
-					success = false;
 				}	
 			} while(!success);
-			
-		}		
+		}
+		
+		for (int i = 0; i < this.getShipSizes().length; i++) {	
+			boolean success = false;
+			do {
+				Ship compShip = Ship.getRandomShip(shipSizes[i], BOARD_SIZE);
+				
+				if (this.getGameLogicComputerBoard().addShip(compShip) == true) {
+					this.getComputerPanel().placeShipGuiBoard(compShip);	
+					success = true;
+				}	
+			} while (!success);
+		}
 	}
-	
 	
 }
 

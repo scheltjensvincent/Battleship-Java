@@ -1,5 +1,7 @@
 package gameLogic;
 
+import java.util.Random;
+
 //import java.util.ArrayList;
 
 public class Ship {
@@ -22,17 +24,7 @@ public class Ship {
 		this.setStartco(startCo);
 		this.setEndco(endCo);
 		this.setName(name);
-		
-		/*
-		 for (int i = startco_row; i < endco_row; i++ ) {
-			for (int j = startco_col; i < endco_col; j++) {
-				this.setCoordinates(i, j);
-			}
-		}
-		 */
 	}	
-	
-	
 	
 	public void setStartco(Coordinates startCo) {
 		this.startco = startCo;
@@ -46,7 +38,6 @@ public class Ship {
 		this.name = name;
 	}
 	
-	
 	public Coordinates getStartco() {
 		return this.startco;
 	}
@@ -55,19 +46,37 @@ public class Ship {
 		return this.endco;
 	}
 	
-	
 	public String getName() {
 		return this.name;
 	}
 	
-	/*
-	public void setCoordinates(int row, int col) {
-		this.coordinates.add(new Coordinates(row, col));
+	public static Ship getRandomShip(int length, int board_size) {
+		Coordinates rndStartco = new Coordinates();
+		Coordinates rndEndco = new Coordinates();
+		
+		int direction = getRandNum(1, 2); //1 is naar rechts, 2 is naar beneden
+		
+		if (direction == 1) {
+			rndStartco.set_row(getRandNum(0, board_size));
+			rndStartco.set_col(getRandNum(0, board_size - length));
+			rndEndco.set_row(rndStartco.get_row());
+			rndEndco.set_col(rndStartco.get_col() + length - 1);
+			
+		}
+		else {
+			rndStartco.set_col(getRandNum(0, board_size));
+			rndStartco.set_row(getRandNum(0, board_size - length));
+			rndEndco.set_col(rndStartco.get_col());
+			rndEndco.set_row(rndStartco.get_row() + length - 1);
+		}
+		
+		Ship ship = new Ship(rndStartco, rndEndco);
+		
+		return ship;
 	}
 	
-	public ArrayList<Coordinates> getCoordinates() {
-		return this.coordinates;
+	private static int getRandNum(int min, int max) {
+		Random r = new Random();
+		return r.nextInt((max - min) + 1) + min;	
 	}
-	*/
-	
 }

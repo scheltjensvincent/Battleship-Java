@@ -36,11 +36,6 @@ public class GameBoard {
 	}*/
 	
 	public void createGrid() {
-			
-			//JButton[][] tempBtnList = new JButton[this.getBoardSize() - 1][this.getBoardSize() - 1];
-			//JPanel tempBoard = new JPanel();
-			//tempBoard.setLayout(new GridLayout(row, col));
-			
 			for (int i = 0; i < this.getBoardSize(); i++) {
 				for (int j = 0; j < this.getBoardSize(); j++) {
 					this.getBtnList()[i][j] = new JButton((i) + "" + (j));
@@ -49,12 +44,8 @@ public class GameBoard {
 					this.getBtnList()[i][j].setBackground(Color.gray);
 					this.getBtnList()[i][j].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createLineBorder(Color.gray, 3)));
 					this.getBoard().add(this.getBtnList()[i][j]);
-					
 				}
 			}
-			
-			//this.setBoard(tempBoard);
-			//this.setBtnList(tempBtnList);
 	}
 	
 	
@@ -135,11 +126,6 @@ public class GameBoard {
 			}
 		}
 	} */
-	
-	private static int getRandNum(int min, int max) {
-		Random r = new Random();
-		return r.nextInt((max - min) + 1) + min;
-	}
 	
 	
 	public JPanel getBoard() {
