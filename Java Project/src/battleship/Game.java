@@ -9,14 +9,14 @@ import gui.*;
 
 public class Game {
 	
-	private final int BOARD_SIZE = 10;
+	private final static int BOARD_SIZE = 10;
 	private final int[] SHIP_SIZES = new int[] {5, 4, 3, 3, 2};
 	
 	private GameBoard computerPanel;
 	private GameBoard humanPanel;
 	
-	private Board gameLogicComputerBoard = new Board(BOARD_SIZE);;
-	private Board gameLogicHumanBoard = new Board(BOARD_SIZE);;
+	private Board gameLogicComputerBoard = new Board(BOARD_SIZE);
+	private Board gameLogicHumanBoard = new Board(BOARD_SIZE);
 	
 	
 	private int dificulty;
@@ -94,6 +94,10 @@ public class Game {
 			
 		}
 	return value;
+	}
+	
+	public static int getBoardSize() {
+		return BOARD_SIZE;
 	}
 	
 	public int[] getShipSizes() {

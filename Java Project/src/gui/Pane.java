@@ -12,8 +12,6 @@ import java.awt.*;
 import java.util.*;
 
 public class Pane extends JPanel {
-	
-	private final int BOARD_SIZE = 10;
 	private JLabel lblDivider;
 	private JButton btnStart;
 	private JButton btnStop;
@@ -22,8 +20,8 @@ public class Pane extends JPanel {
 	private JLabel lblPlayerScore;
 	private JLabel welcomeOfGame; 
 	
-	public GameBoard computerPanel = new GameBoard(BOARD_SIZE);
-	public GameBoard humanPanel = new GameBoard(BOARD_SIZE);
+	private GameBoard computerPanel = new GameBoard(Game.getBoardSize());
+	private GameBoard humanPanel = new GameBoard(Game.getBoardSize());
 	
 	private Game game = new Game(getComputerPanel(), getHumanPanel());
 	
