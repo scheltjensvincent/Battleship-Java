@@ -25,13 +25,9 @@ public class Pane extends JPanel {
 	public GameBoard computerPanel = new GameBoard(BOARD_SIZE);
 	public GameBoard humanPanel = new GameBoard(BOARD_SIZE);
 	
-	public Board gameLogicHumanBoard = new Board(BOARD_SIZE);
-	public Board gameLogicComputerBoard = new Board(BOARD_SIZE);
-	public int[] shipSizes = new int[] {5, 4, 3, 3, 2};
-	private Game game = new Game(getComputerPanel(), getHumanPanel(), getGameLogicHumanBoard(), getGameLogicComputerBoard(), getShipSizes() );
+	private Game game = new Game(getComputerPanel(), getHumanPanel());
 	
 	public Pane() {
-		
 		setLayout(new GridBagLayout());
 		setPreferredSize(new Dimension(700, 800));
 		GridBagConstraints paneConstraints = new GridBagConstraints();
@@ -152,21 +148,6 @@ public class Pane extends JPanel {
 	public GameBoard getComputerPanel() {
 		return this.computerPanel;
 	}
-	
-	public Board getGameLogicHumanBoard() {
-		return this.gameLogicHumanBoard;
-	}
-	
-	public Board getGameLogicComputerBoard() {
-		return this.gameLogicComputerBoard;
-	}
-	
-	public int[] getShipSizes() {
-		return this.shipSizes;
-	}
-	
-	
-	
 }
 
 

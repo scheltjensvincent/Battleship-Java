@@ -10,43 +10,109 @@ import gui.*;
 public class Game {
 	
 	private final int BOARD_SIZE = 10;
+	private final int[] SHIP_SIZES = new int[] {5, 4, 3, 3, 2};
+	
 	private GameBoard computerPanel;
 	private GameBoard humanPanel;
-	private Board gameLogicComputerBoard;
-	private Board gameLogicHumanBoard;
-	private int[] shipSizes;
-	//private JButton[][] btnList;
-	private int dificulty;
 	
-	public Game(GameBoard computerPanel, GameBoard humanPanel, Board gameLogicComputerBoard , Board gameLogicHumanBoard, int[] shipSizes) {
+	private Board gameLogicComputerBoard = new Board(BOARD_SIZE);;
+	private Board gameLogicHumanBoard = new Board(BOARD_SIZE);;
+	
+	
+	private int dificulty;
+	//private JButton[][] btnList;
+	
+	public Game(GameBoard computerPanel, GameBoard humanPanel) {
 		this.computerPanel = computerPanel;
 		this.humanPanel = humanPanel;
-		this.gameLogicComputerBoard = gameLogicComputerBoard;
-		this.gameLogicHumanBoard = gameLogicHumanBoard;
-		this.shipSizes = shipSizes;
-		
 	}
 	
-	/*
-	public Game(JButton[][] btnList) {
-		this.btnList = btnList;
-	}
-	*/
 	
 	public void startProgram() {
 		this.computerPanel.disableBtns();
 		initializeGame();
 		this.computerPanel.addComputerEventListeners(gameLogicComputerBoard);
 		this.computerPanel.enableBtns(); //disable this when working on the startGame method
-		
-		
 
 		
 		//startGame();
 	}
 	
 	
-	/*
+	public void initializeGame() {
+		this.humanPanel.startBoard(1);
+		
+		for (int i = 0; i < this.SHIP_SIZES.length; i++) {
+			boolean success = false;	
+			do {
+				Ship guiShip = Ships.getOneShip(SHIP_SIZES[i]);
+				if (this.gameLogicHumanBoard.addShip(guiShip) == true) {
+					this.humanPanel.placeShipGuiBoard(guiShip);	
+					success = true;
+				}
+				else {
+					GameBoard.printError();
+				}	
+			} while(!success);
+		}
+		
+		for (int i = 0; i < this.SHIP_SIZES.length; i++) {	
+			boolean success = false;
+			do {
+				Ship compShip = Ship.getRandomShip(SHIP_SIZES[i], BOARD_SIZE);
+				
+				if (this.gameLogicComputerBoard.addShip(compShip) == true) {
+					this.computerPanel.placeShipGuiBoard(compShip);	
+					success = true;
+				}	
+			} while (!success);
+		}
+	}
+
+	public int difficulty() {
+		int value = 0;
+		boolean validDificulty = false;
+		
+		while(!validDificulty) {
+		String val = JOptionPane.showInputDialog(null, "At what difficulty would you want to play? [1-3]");
+			if (val != null) {
+				try { 
+					value = Integer.valueOf(val);
+						if (value >= 1 && value < 4) {
+							validDificulty = true;
+						} else {
+							JOptionPane.showMessageDialog(null, "Please enter a valid dificulty between 1 and 3");
+						}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Please Enter a Valid Location!");
+					validDificulty = false;
+				}
+			} else {
+				value = -1;
+				validDificulty = true;
+			}
+			
+		}
+	return value;
+	}
+	
+	public int[] getShipSizes() {
+		return this.SHIP_SIZES;
+	}
+	
+	public Board getGameLogicHumanBoard() {
+		return this.gameLogicHumanBoard;
+	}
+	
+	public Board getGameLogicComputerBoard() {
+		return this.gameLogicComputerBoard;
+	}
+	
+	public int getDifficulty() {
+		return this.dificulty;
+	}
+	
+/*
 	
 	//the major part here is still pseudocode
 	public void startGame() {
@@ -94,69 +160,5 @@ public class Game {
 	}
 	
 	*/
-	
-	
-	public void initializeGame() {
-		this.humanPanel.startBoard(1);
-		
-		for (int i = 0; i < this.shipSizes.length; i++) {
-			boolean success = false;	
-			do {
-				Ship guiShip = Ships.getOneShip(shipSizes[i]);
-				if (this.gameLogicHumanBoard.addShip(guiShip) == true) {
-					this.humanPanel.placeShipGuiBoard(guiShip);	
-					success = true;
-				}
-				else {
-					GameBoard.printError();
-				}	
-			} while(!success);
-		}
-		
-		for (int i = 0; i < this.shipSizes.length; i++) {	
-			boolean success = false;
-			do {
-				Ship compShip = Ship.getRandomShip(shipSizes[i], BOARD_SIZE);
-				
-				if (this.gameLogicComputerBoard.addShip(compShip) == true) {
-					this.computerPanel.placeShipGuiBoard(compShip);	
-					success = true;
-				}	
-			} while (!success);
-		}
-	}
-
-	public int difficulty() {
-		int value = 0;
-		boolean validDificulty = false;
-		
-		while(!validDificulty) {
-		String val = JOptionPane.showInputDialog(null, "At what difficulty would you want to play? [1-3]");
-			if (val != null) {
-				try { 
-					value = Integer.valueOf(val);
-						if (value >= 1 && value < 4) {
-							validDificulty = true;
-						} else {
-							JOptionPane.showMessageDialog(null, "Please enter a valid dificulty between 1 and 3");
-						}
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "Please Enter a Valid Location!");
-					validDificulty = false;
-				}
-			} else {
-				value = -1;
-				validDificulty = true;
-			}
-			
-		}
-	return value;
-	}
-	
-	public int getDifficulty() {
-		return this.dificulty;
-	}
-	
-	
 	
 }

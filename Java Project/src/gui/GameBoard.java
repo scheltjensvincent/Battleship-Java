@@ -109,34 +109,6 @@ public class GameBoard {
 		}
 	}
 	
-	/*
-	public void initShips(int player) { // should be in the ships class and placeShip as well
-		int shipsOnBoard = 0;
-		if(player == 1) {
-			while(shipsOnBoard != 5) {
-				for(int i = 5; i > 0; i--) {
-					int length = i;
-					int nrShip = 6 - i;
-					
-					//generate one ship 
-		
-					shipsOnBoard++;	
-				}
-			}
-		} else { 
-			while(shipsOnBoard != 5) { // delete WHILE LOOP + hierboven ook
-				for(int i = 5; i > 0; i--) {
-					int length = i;
-					int initLoc = getRandNum(0, 100);
-					int direction = getRandNum(1, 5);
-					placeShip(initLoc,length, direction, player);
-					shipsOnBoard++;	
-				}
-			}
-		}
-	} */
-	
-	
 	public JPanel getBoard() {
 		return this.board;
 	}
