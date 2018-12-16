@@ -128,26 +128,6 @@ public class GameBoard {
 	public void setBtnList(JButton[][] list) {
 		this.btnList = list;
 	}
-	
-	
-	public void disableBtns() {
-		for (int i = 0; i < this.getBoardSize(); i++) {
-			for (int j = 0; j < this.getBoardSize(); j++) {
-				this.getBtnList()[i][j].setEnabled(false);
-				this.getBtnList()[i][j].setBackground(new Color(170,170,170));
-			}
-		}
-	}
-	
-
-	public void enableBtns() {
-		for (int i = 0; i < this.getBoardSize(); i++) {
-			for (int j = 0; j < this.getBoardSize(); j++) {
-				this.getBtnList()[i][j].setEnabled(true);
-			}
-		}
-	}
-	
 }
 	
 
