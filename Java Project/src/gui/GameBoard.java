@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import battleship.Game;
+
 import java.util.Random;
 import gameLogic.*;
 
@@ -21,6 +23,7 @@ public class GameBoard {
 	private final int BOARD_SIZE;
 	private JPanel board;
 	private JButton[][] btnList;
+
 
 	public GameBoard(int board_size) {
 		this.BOARD_SIZE = board_size;
@@ -42,17 +45,17 @@ public class GameBoard {
 					this.getBtnList()[i][j].setPreferredSize(new Dimension(100,100));
 					this.getBtnList()[i][j].setOpaque(true);
 					this.getBtnList()[i][j].setBackground(Color.gray);
-					this.getBtnList()[i][j].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createLineBorder(Color.gray, 3)));
+					this.getBtnList()[i][j].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createLineBorder(new Color(255, 255, 255, 0), 3)));
 					this.getBoard().add(this.getBtnList()[i][j]);
 				}
 			}
 	}
 	
 	
-	public void addComputerEventListeners() {
+	public void addComputerEventListeners(Board logicBoard) {
 		for (int i = 0; i < this.getBoardSize(); i++) {
 			for (int j = 0; j < this.getBoardSize(); j++) {
-				this.getBtnList()[i][j].addActionListener(new ButtonListener());
+				this.getBtnList()[i][j].addActionListener(new ButtonListener(logicBoard));
 			}
 		}
 	}
@@ -146,6 +149,25 @@ public class GameBoard {
 	
 	public void setBtnList(JButton[][] list) {
 		this.btnList = list;
+	}
+	
+	
+	public void disableBtns() {
+		for (int i = 0; i < this.getBoardSize(); i++) {
+			for (int j = 0; j < this.getBoardSize(); j++) {
+				this.getBtnList()[i][j].setEnabled(false);
+				this.getBtnList()[i][j].setBackground(new Color(170,170,170));
+			}
+		}
+	}
+	
+
+	public void enableBtns() {
+		for (int i = 0; i < this.getBoardSize(); i++) {
+			for (int j = 0; j < this.getBoardSize(); j++) {
+				this.getBtnList()[i][j].setEnabled(true);
+			}
+		}
 	}
 	
 }
