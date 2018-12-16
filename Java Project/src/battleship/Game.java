@@ -180,7 +180,6 @@ public class Game {
 					//btn.setForeground(Color.white); //doesn't work disabled JButtons get default font color gray
 					btn.setOpaque(true);
 					btn.setEnabled(false);
-					
 				}
 				else {
 					btn.setBackground(Color.white);

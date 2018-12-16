@@ -107,10 +107,10 @@ public class Board {
 		}
 		
 	}
-	
+	/*
 	public boolean getShotFired() {
 		return true;
-	}
+	}*/
 	
 	public boolean opponentWon() {
 		if (this.getOppenentScore() == this.getMaxScore()) {

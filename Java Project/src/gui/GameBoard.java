@@ -51,14 +51,14 @@ public class GameBoard {
 			}
 	}
 	
-	
+	/*
 	public void addComputerEventListeners(Board logicBoard) {
 		for (int i = 0; i < this.getBoardSize(); i++) {
 			for (int j = 0; j < this.getBoardSize(); j++) {
 				this.getBtnList()[i][j].addActionListener(new ButtonListener(logicBoard));
 			}
 		}
-	}
+	}*/
 	
 	public void startBoard(int player) {
 		if(player == 1) {

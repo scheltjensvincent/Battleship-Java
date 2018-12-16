@@ -143,6 +143,7 @@ public class Pane extends JPanel {
 		return this.humanPanel;
 	}
 	
+	
 	public GameBoard getComputerPanel() {
 		return this.computerPanel;
 	}
