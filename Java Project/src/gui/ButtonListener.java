@@ -42,6 +42,8 @@ public class ButtonListener implements ActionListener{
 		btn.setEnabled(false);
 		}
 		
+		logicBoard.shotFired(); // returns true if an actual shot was fired coordintates != null
+		
 		
 		//Coordinates location = Coordinates.parseIntoCoordinates(Integer.parseInt(btn.getText()));
 		

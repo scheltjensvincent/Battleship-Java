@@ -10,12 +10,13 @@ import gui.*;
 public class Game {
 	
 	private final int BOARD_SIZE = 10;
-	GameBoard computerPanel;
-	GameBoard humanPanel;
-	Board gameLogicComputerBoard;
-	Board gameLogicHumanBoard;
-	int[] shipSizes;
-	JButton[][] btnList;
+	private GameBoard computerPanel;
+	private GameBoard humanPanel;
+	private Board gameLogicComputerBoard;
+	private Board gameLogicHumanBoard;
+	private int[] shipSizes;
+	//private JButton[][] btnList;
+	private int dificulty;
 	
 	public Game(GameBoard computerPanel, GameBoard humanPanel, Board gameLogicComputerBoard , Board gameLogicHumanBoard, int[] shipSizes) {
 		this.computerPanel = computerPanel;
@@ -26,9 +27,11 @@ public class Game {
 		
 	}
 	
+	/*
 	public Game(JButton[][] btnList) {
 		this.btnList = btnList;
 	}
+	*/
 	
 	public void startProgram() {
 		this.computerPanel.disableBtns();
@@ -42,11 +45,12 @@ public class Game {
 		//startGame();
 	}
 	
+	
 	/*
 	
 	//the major part here is still pseudocode
 	public void startGame() {
-		int dificulty = getDificulty();
+		int difficulty = difficulty();
 		boolean won = false;
 		do {
 		boolean playerTurn = true;
@@ -59,36 +63,38 @@ public class Game {
 				//should kick in whenever a JButton is clicked
 				if(gameLogicComputerBoard.shotFired()) { // shotfired a method that returns true when a shot is fired 
 				this.computerPanel.disableBtns();
-				
 					//update score
 					//check whether the human has won
-					if(playerScore == maxScore) {
-						won = true;
-						gameOver();
-						resetGame(); 
-					} else {
+					//if(playerScore == maxScore) {
+						//won = true;
+						//gameOver();
+						//resetGame(); 
+					//} else {
 						playerTurn = false;
 					}
 				}
-			} while(!playerTurn) {
-				int computerMove = compMove(dificulty); //make a class and define computer move for dificulty levels 1-3
+			 while(!playerTurn) {
+				while(!gameLogicHumanBoard.shotFired()) { // when in the loop disabled buttons are selected no shot is registered so you'll loop through.
+					int computerMove = compMove(difficulty); //make a class and define computer move for difficulty levels 1-3
+				}
 				// handel the computermove etc 
 				//computer's turn -> can fire one shot
 				//update score
 
 				//check whether the computer has won
-				if(computerScore == maxScore) {
-						won = true;
-						gameOver();
-						resetGame(); 
-					} else {
+				//if(computerScore == maxScore) {
+					//	won = true;
+					//	gameOver();
+					//	resetGame(); 
+					//} else {
 						playerTurn = true;
-					}
+					//}
 			}
 		} while(!won); 
 	}
 	
 	*/
+	
 	
 	public void initializeGame() {
 		this.humanPanel.startBoard(1);
@@ -120,7 +126,7 @@ public class Game {
 		}
 	}
 
-	public int getDificulty() {
+	public int difficulty() {
 		int value = 0;
 		boolean validDificulty = false;
 		
@@ -146,4 +152,11 @@ public class Game {
 		}
 	return value;
 	}
+	
+	public int getDifficulty() {
+		return this.dificulty;
+	}
+	
+	
+	
 }

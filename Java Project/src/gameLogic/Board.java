@@ -104,11 +104,14 @@ public class Board {
 			return true;
 			//implement method: "when score = maxScore -> game is over.
 			//bovenaan staat een methode incrementMaxScore maar max score moet toch altijd 17 zijn?
-		}
-		else {
+		} else {
 			return false;
 		}
 		
+	}
+	
+	public boolean shotFired() {
+		return true;
 	}
 	
 	public boolean opponentWon() {
