@@ -57,7 +57,6 @@ public class GameBoard {
 		}
 	}
 	
-	
 	public void startBoard(int player) {
 		if(player == 1) {
 			String name = askName();
@@ -99,6 +98,13 @@ public class GameBoard {
 		}	
 	}
 	
+	public void enableBtns(boolean bln) {
+		for (int i = 0; i < this.getBoardSize(); i++) {
+			for (int j = 0; j < this.getBoardSize(); j++) {
+				this.getBtnList()[i][j].setEnabled(bln);
+			}
+		}
+	}
 	
 	/*
 	public void initShips(int player) { // should be in the ships class and placeShip as well
