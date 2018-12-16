@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.*;
 
+import battleship.Game;
 import gameLogic.Ship;
 import gameLogic.*;
 
@@ -21,12 +22,13 @@ public class Pane extends JPanel {
 	private JLabel lblPlayerScore;
 	private JLabel welcomeOfGame; 
 	
-	private GameBoard computerPanel = new GameBoard(BOARD_SIZE);
-	private GameBoard humanPanel = new GameBoard(BOARD_SIZE);
+	public GameBoard computerPanel = new GameBoard(BOARD_SIZE);
+	public GameBoard humanPanel = new GameBoard(BOARD_SIZE);
 	
-	private Board gameLogicHumanBoard = new Board(BOARD_SIZE);
-	private Board gameLogicComputerBoard = new Board(BOARD_SIZE);
-	private int[] shipSizes = new int[] {5, 4, 3, 3, 2};
+	public Board gameLogicHumanBoard = new Board(BOARD_SIZE);
+	public Board gameLogicComputerBoard = new Board(BOARD_SIZE);
+	public int[] shipSizes = new int[] {5, 4, 3, 3, 2};
+	private Game game = new Game(getComputerPanel(), getHumanPanel(), getGameLogicHumanBoard(), getGameLogicComputerBoard(), getShipSizes() );
 	
 	public Pane() {
 		
@@ -64,7 +66,7 @@ public class Pane extends JPanel {
 				btnStop.setEnabled(true);
 				btnRestart.setEnabled(true);
 				
-				startProgram();			
+				game.startProgram();			
 			}	
 		});
 		
@@ -163,65 +165,7 @@ public class Pane extends JPanel {
 		return this.shipSizes;
 	}
 	
-	private void startProgram() {
-		initializeGame();
-		this.getComputerPanel().addComputerEventListeners();
-		//put glass pane
-		
-
-		
-		startGame();
-	}
 	
-	private void startGame() {
-		boolean won = false;
-		do {
-			
-			
-			
-			
-			//remove glass pane
-		
-			//human starts -> can fire one shot
-			//put glass pane
-			//update score
-			//check whether the human has won
-		
-			//computer's turn -> can fire one shot
-			//update score
-			//check whether the computer has won
-		} while(!won);
-	}
-	
-	private void initializeGame() {
-		this.getHumanPanel().startBoard(1);
-		
-		for (int i = 0; i < this.getShipSizes().length; i++) {
-			boolean success = false;	
-			do {
-				Ship guiShip = Ships.getOneShip(shipSizes[i]);
-				if (this.getGameLogicHumanBoard().addShip(guiShip) == true) {
-					this.getHumanPanel().placeShipGuiBoard(guiShip);	
-					success = true;
-				}
-				else {
-					GameBoard.printError();
-				}	
-			} while(!success);
-		}
-		
-		for (int i = 0; i < this.getShipSizes().length; i++) {	
-			boolean success = false;
-			do {
-				Ship compShip = Ship.getRandomShip(shipSizes[i], BOARD_SIZE);
-				
-				if (this.getGameLogicComputerBoard().addShip(compShip) == true) {
-					this.getComputerPanel().placeShipGuiBoard(compShip);	
-					success = true;
-				}	
-			} while (!success);
-		}
-	}
 	
 }
 

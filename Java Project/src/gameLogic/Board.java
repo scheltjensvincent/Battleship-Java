@@ -96,17 +96,22 @@ public class Board {
 		return true;
 	}
 	
-	public boolean fire(Coordinates coordinate) {
+	public boolean hit(Coordinates coordinate) {
 		if (board[coordinate.get_row()][coordinate.get_col()] == 1) {
 			this.getBoard()[coordinate.get_row()][coordinate.get_col()] = -1;
 			this.incrementScoreOpponent();
+			System.out.println(scoreOpponent);
 			return true;
 			//implement method: "when score = maxScore -> game is over.
-		}
-		else {
+			//bovenaan staat een methode incrementMaxScore maar max score moet toch altijd 17 zijn?
+		} else {
 			return false;
 		}
 		
+	}
+	
+	public boolean shotFired() {
+		return true;
 	}
 	
 	public boolean opponentWon() {
