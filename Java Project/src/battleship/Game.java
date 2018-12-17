@@ -147,8 +147,7 @@ public class Game {
 		if(gameLogicHumanBoard.opponentWon()) {
 			gameOver(0); //change the functionality
 		}
-		
-		System.out.println("Computer's turn " + difficulty + " " + move);
+	
 		this.getComputerPanel().enableBtns(true, gameLogicComputerBoard.getBoard());
 	}
 	
