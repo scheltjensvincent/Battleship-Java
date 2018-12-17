@@ -43,55 +43,50 @@ public class Game {
 	}
 	
 	public void startProgram() {
-		//this.computerPanel.enableBtns(false);
 		initializeGame();
 		difficulty = difficulty();
-		//this.computerPanel.addComputerEventListeners(gameLogicComputerBoard);
-		//this.computerPanel.enableBtns(false); //disable this when working on the startGame method
-		//startGame();
-		
 		this.addComputerEventListeners();
 	}
 	
 	
 	public void initializeGame() {
-		this.humanPanel.startBoard(1);
+		this.humanPanel.startBoard();
 		
-		//activate this when you want to generate your own ships
-		/* for (int i = 0; i < this.SHIP_SIZES.length; i++) {
-			boolean success = false;	
-			do {
-				Ship guiShip = Ships.getOneShip(SHIP_SIZES[i]);
-				if (this.gameLogicHumanBoard.addShip(guiShip) == true) {
-					this.humanPanel.placeShipGuiBoard(guiShip);	
-					success = true;
-				}
-				else {
-					GameBoard.printError();
-				}	
-			} while(!success);
-		} */
-		
-		//for testing purposes generate player ships automatically
-		for (int i = 0; i < this.SHIP_SIZES.length; i++) {	
-			boolean success = false;
-			do {
-				Ship guiShip = Ship.getRandomShip(SHIP_SIZES[i], BOARD_SIZE);
-				
-				if (this.gameLogicHumanBoard.addShip(guiShip) == true) {
-					this.humanPanel.placeShipGuiBoard(guiShip, true);	
-					success = true;
-				}	
-			} while (!success);
+		if (this.humanPanel.getshipManualShipGeneration() == true) {
+			for (int i = 0; i < this.SHIP_SIZES.length; i++) {
+				boolean success = false;	
+				do {
+					Ship guiShip = Ships.getOneShip(SHIP_SIZES[i]);
+					if (this.gameLogicHumanBoard.addShip(guiShip) == true) {
+						this.humanPanel.placeShipGuiBoard(guiShip);	
+						success = true;
+					}
+					else {
+						GameBoard.printError();
+					}	
+				} while(!success);
+			}
 		}
-		
+		else {
+			for (int i = 0; i < this.SHIP_SIZES.length; i++) {	
+				boolean success = false;
+				do {
+					Ship guiShip = Ship.getRandomShip(SHIP_SIZES[i], BOARD_SIZE);
+					
+					if (this.gameLogicHumanBoard.addShip(guiShip) == true) {
+						this.humanPanel.placeShipGuiBoard(guiShip);	
+						success = true;
+					}	
+				} while (!success);
+			}
+		}
+
 		for (int i = 0; i < this.SHIP_SIZES.length; i++) {	
 			boolean success = false;
 			do {
 				Ship compShip = Ship.getRandomShip(SHIP_SIZES[i], BOARD_SIZE);
-				
 				if (this.gameLogicComputerBoard.addShip(compShip) == true) {
-					this.computerPanel.placeShipGuiBoard(compShip, false);	
+					//this.computerPanel.placeShipGuiBoard(compShip, false);	
 					success = true;
 				}	
 			} while (!success);

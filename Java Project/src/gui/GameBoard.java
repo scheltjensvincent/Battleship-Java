@@ -24,7 +24,8 @@ public class GameBoard {
 	private final int BOARD_SIZE;
 	private JPanel board;
 	private JButton[][] btnList;
-
+	
+	private boolean shipManualShipGeneration;
 
 	public GameBoard(int board_size) {
 		this.BOARD_SIZE = board_size;
@@ -32,12 +33,6 @@ public class GameBoard {
 		this.getBoard().setLayout(new GridLayout(this.getBoardSize(), this.getBoardSize()));
 		this.setBtnList(new JButton[this.getBoardSize()][this.getBoardSize()]);
 	}
-	/*
-	public GameBoard(JPanel b, JButton[][] l, int board_size) {
-		this.setBoard(b);
-		this.setBtnList(l);
-		this.BOARD_SIZE = board_size;
-	}*/
 	
 	public void createGrid() {
 			for (int i = 0; i < this.getBoardSize(); i++) {
@@ -52,21 +47,23 @@ public class GameBoard {
 			}
 	}
 	
-	/*
-	public void addComputerEventListeners(Board logicBoard) {
-		for (int i = 0; i < this.getBoardSize(); i++) {
-			for (int j = 0; j < this.getBoardSize(); j++) {
-				this.getBtnList()[i][j].addActionListener(new ButtonListener(logicBoard));
-			}
+	public void startBoard() {
+		String name = askName();
+		String welcome = "Welcome " + name + "! \n" + "Before we can start you'll first have to place your boats.";
+		JOptionPane.showMessageDialog(null, welcome);
+		
+		int dialogButton = JOptionPane.YES_NO_OPTION;
+		String str = "Click YES, if you want to place yours ships manually. \n" + "Click NO, if you want them to be placed for you." ;
+		int dialogResult = JOptionPane.showConfirmDialog(null, str, "Ship placement", dialogButton);
+		
+		if(dialogResult == 0) {
+			this.shipManualShipGeneration = true;
 		}
-	}*/
-	
-	public void startBoard(int player) {
-		if(player == 1) {
-			String name = askName();
-			String welcome = "Welcome " + name + "! \n" + "Before we can start you'll first have to place your boats.";
-			JOptionPane.showMessageDialog(null, welcome);
-		}
+		else {
+			this.shipManualShipGeneration = false;
+		} 
+		
+		
 	}
 	
 	private String askName() {
@@ -92,31 +89,14 @@ public class GameBoard {
 		this.getBtnList()[row][col].setForeground(Color.white);
 	}
 	
-	public void placeShipGuiBoard(Ship ship, boolean playerShips) {
-		if(playerShips) {
-			for (int i = ship.getStartco().get_row(); i <= ship.getEndco().get_row(); i++) {
-				for (int j = ship.getStartco().get_col(); j <= ship.getEndco().get_col(); j++) {
-					setBtnColor(i, j);
-					setLblColor(i, j);
-				} 
-			}
-		} else if (!playerShips) {
-			/* for (int i = ship.getStartco().get_row(); i <= ship.getEndco().get_row(); i++) {
-				for (int j = ship.getStartco().get_col(); j <= ship.getEndco().get_col(); j++) {
-					setBtnColor(i, j);
-					setLblColor(i, j);
-				}
-			} */
+	public void placeShipGuiBoard(Ship ship) {
+		for (int i = ship.getStartco().get_row(); i <= ship.getEndco().get_row(); i++) {
+			for (int j = ship.getStartco().get_col(); j <= ship.getEndco().get_col(); j++) {
+				setBtnColor(i, j);
+				setLblColor(i, j);
+			} 
 		}
 	}
-	
-	/*public void enableBtns(boolean bln) {
-		for (int i = 0; i < this.getBoardSize(); i++) {
-			for (int j = 0; j < this.getBoardSize(); j++) {
-				this.getBtnList()[i][j].setEnabled(bln);
-			}
-		}
-	}*/
 	
 	public void enableBtns(boolean bln, int[][] board) {
 		for (int i = 0; i < this.getBoardSize(); i++) {
@@ -127,7 +107,6 @@ public class GameBoard {
 			}
 		}
 	}
-
 	
 	public JPanel getBoard() {
 		return this.board;
@@ -139,6 +118,10 @@ public class GameBoard {
 	
 	public int getBoardSize() {
 		return this.BOARD_SIZE;
+	}
+	
+	public boolean getshipManualShipGeneration() {
+		return this.shipManualShipGeneration;
 	}
 	
 	public void setBoard(JPanel panel) {
