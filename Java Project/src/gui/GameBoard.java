@@ -86,20 +86,28 @@ public class GameBoard {
 	//sets the JButton Color of a JButton to blue for where a ship is.
 	public void setBtnColor(int row, int col) { 		
 		this.getBtnList()[row][col].setBackground(Color.blue);
-		 
 	}
 	
 	public void setLblColor(int row, int col) { 		
 		this.getBtnList()[row][col].setForeground(Color.white);
 	}
 	
-	public void placeShipGuiBoard(Ship ship) {
-		for (int i = ship.getStartco().get_row(); i <= ship.getEndco().get_row(); i++) {
-			for (int j = ship.getStartco().get_col(); j <= ship.getEndco().get_col(); j++) {
-				setBtnColor(i, j);
-				setLblColor(i, j);
+	public void placeShipGuiBoard(Ship ship, boolean playerShips) {
+		if(playerShips) {
+			for (int i = ship.getStartco().get_row(); i <= ship.getEndco().get_row(); i++) {
+				for (int j = ship.getStartco().get_col(); j <= ship.getEndco().get_col(); j++) {
+					setBtnColor(i, j);
+					setLblColor(i, j);
+				} 
 			}
-		}	
+		} else if (!playerShips) {
+			/* for (int i = ship.getStartco().get_row(); i <= ship.getEndco().get_row(); i++) {
+				for (int j = ship.getStartco().get_col(); j <= ship.getEndco().get_col(); j++) {
+					setBtnColor(i, j);
+					setLblColor(i, j);
+				}
+			} */
+		}
 	}
 	
 	/*public void enableBtns(boolean bln) {

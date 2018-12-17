@@ -56,7 +56,9 @@ public class Game {
 	
 	public void initializeGame() {
 		this.humanPanel.startBoard(1);
-		for (int i = 0; i < this.SHIP_SIZES.length; i++) {
+		
+		//activate this when you want to generate your own ships
+		/* for (int i = 0; i < this.SHIP_SIZES.length; i++) {
 			boolean success = false;	
 			do {
 				Ship guiShip = Ships.getOneShip(SHIP_SIZES[i]);
@@ -68,7 +70,20 @@ public class Game {
 					GameBoard.printError();
 				}	
 			} while(!success);
-		} 
+		} */
+		
+		//for testing purposes generate player ships automatically
+		for (int i = 0; i < this.SHIP_SIZES.length; i++) {	
+			boolean success = false;
+			do {
+				Ship guiShip = Ship.getRandomShip(SHIP_SIZES[i], BOARD_SIZE);
+				
+				if (this.gameLogicHumanBoard.addShip(guiShip) == true) {
+					this.humanPanel.placeShipGuiBoard(guiShip, true);	
+					success = true;
+				}	
+			} while (!success);
+		}
 		
 		for (int i = 0; i < this.SHIP_SIZES.length; i++) {	
 			boolean success = false;
@@ -76,7 +91,7 @@ public class Game {
 				Ship compShip = Ship.getRandomShip(SHIP_SIZES[i], BOARD_SIZE);
 				
 				if (this.gameLogicComputerBoard.addShip(compShip) == true) {
-					this.computerPanel.placeShipGuiBoard(compShip);	
+					this.computerPanel.placeShipGuiBoard(compShip, false);	
 					success = true;
 				}	
 			} while (!success);
@@ -122,9 +137,11 @@ public class Game {
 		JButton btn = humanPanel.getBtnList()[location.get_row()][location.get_col()];
 		if(getGameLogicHumanBoard().hit(location)) {		 
 			hit(btn);
+			compMove.hit(true);
 		}
 		else {
 			miss(btn);
+			compMove.hit(false);
 		}
 		
 		System.out.println(gameLogicHumanBoard.getOppenentScore() + " pc score");
@@ -215,13 +232,11 @@ public class Game {
 	
 	public void hit(JButton btn) {
 		btn.setBackground(Color.red);
-		//btn.setForeground(Color.white); //doesn't work disabled JButtons get default font color gray
 		btn.setOpaque(true);
 		btn.setEnabled(false);
 	}
 	public void miss(JButton btn) {
 		btn.setBackground(Color.white);
-		//btn.setForeground(Color.white); //doesn't work disabled JButtons get default font color gray
 		btn.setOpaque(true);
 		btn.setEnabled(false);
 	}
@@ -235,56 +250,4 @@ public class Game {
 		//resetGame()
 	}
 
-
-	
-	
-	/*
-	
-	//the major part here is still pseudocode
-	public void startGame() {
-		int difficulty = difficulty();
-		boolean won = false;
-		do {
-		boolean playerTurn = true;
-			while(playerTurn) {
-				this.computerPanel.enableBtns();
-				//human starts -> can fire one shot
-				//how do we register here that a shot has been fired? 
-				//we can add a method that returns true whenever hit (fire) fails or succeeds. 
-				
-				//should kick in whenever a JButton is clicked
-				if(gameLogicComputerBoard.shotFired()) { // shotfired a method that returns true when a shot is fired 
-				this.computerPanel.disableBtns();
-					//update score
-					//check whether the human has won
-					//if(playerScore == maxScore) {
-						//won = true;
-						//gameOver();
-						//resetGame(); 
-					//} else {
-						playerTurn = false;
-					}
-				}
-			 while(!playerTurn) {
-				while(!gameLogicHumanBoard.shotFired()) { // when in the loop disabled buttons are selected no shot is registered so you'll loop through.
-					int computerMove = compMove(difficulty); //make a class and define computer move for difficulty levels 1-3
-				}
-				// handel the computermove etc 
-				//computer's turn -> can fire one shot
-				//update score
-
-				//check whether the computer has won
-				//if(computerScore == maxScore) {
-					//	won = true;
-					//	gameOver();
-					//	resetGame(); 
-					//} else {
-						playerTurn = true;
-					//}
-			}
-		} while(!won); 
-	}
-	
-	*/
-	
 }
