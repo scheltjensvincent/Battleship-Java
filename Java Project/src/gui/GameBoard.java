@@ -108,6 +108,7 @@ public class GameBoard {
 			}
 		}
 	}
+
 	
 	public JPanel getBoard() {
 		return this.board;

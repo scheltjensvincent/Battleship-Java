@@ -9,8 +9,8 @@ import gameLogic.Board;
 import gameLogic.Coordinates;
 
 
-public class ButtonListener implements ActionListener{
-	
+//public class ButtonListener implements ActionListener{
+	/*
 	public Board logicBoard;
 	
 	public ButtonListener(Board logicBoard) { 
@@ -37,6 +37,6 @@ public class ButtonListener implements ActionListener{
 			btn.setEnabled(false);
 		}
 		
-		Game.setTurn(true);
-	}			
-}
+		//Game.setTurn(true);
+	}		*/	
+//}

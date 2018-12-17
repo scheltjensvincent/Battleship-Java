@@ -25,6 +25,10 @@ public class Pane extends JPanel {
 	
 	private Game game = new Game(getComputerPanel(), getHumanPanel());
 	
+	private int compScore = game.getGameLogicComputerBoard().getOppenentScore();
+	private int humanScore = game.getGameLogicComputerBoard().getOppenentScore();
+	
+	
 	public Pane() {
 		setLayout(new GridBagLayout());
 		setPreferredSize(new Dimension(700, 800));
@@ -79,8 +83,8 @@ public class Pane extends JPanel {
 		
 		
 		//create labels
-		lblCompScore = new JLabel("Computer Score: "); //definieer een variabele compScore en voeg + compScore toe
-		lblPlayerScore = new JLabel("Your Score: "); //definieer een variabele playerScore en voeg + playerScore toe
+		lblCompScore = new JLabel("Computer Score: " + compScore); //definieer een variabele compScore en voeg + compScore toe
+		lblPlayerScore = new JLabel("Your Score: " + humanScore); //definieer een variabele playerScore en voeg + playerScore toe
 		welcomeOfGame = new JLabel("Welcome to the Battleship game, hit start to play!");
 		
 		//create divider

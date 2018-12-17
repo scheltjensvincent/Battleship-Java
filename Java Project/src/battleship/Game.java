@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import gameLogic.*;
 import gui.*;
@@ -15,6 +16,7 @@ public class Game {
 	
 	private final static int BOARD_SIZE = 10;
 	private final int[] SHIP_SIZES = new int[] {5, 4, 3, 3, 2};
+	private final int MAX_SCORE = 17;
 	
 	private GameBoard computerPanel;
 	private GameBoard humanPanel;
@@ -22,10 +24,12 @@ public class Game {
 	private Board gameLogicComputerBoard = new Board(BOARD_SIZE);
 	private Board gameLogicHumanBoard = new Board(BOARD_SIZE);
 	
+	private ComputerMove compMove = new ComputerMove();
 	
-	private int dificulty;
+	
+	private int difficulty;
 	private JButton[][] btnList;
-	private static boolean humanTurn = true;
+	private boolean humanTurn = true;
 	
 	public Game(GameBoard computerPanel, GameBoard humanPanel) {
 		this.computerPanel = computerPanel;
@@ -35,7 +39,9 @@ public class Game {
 	
 	
 	public void startProgram() {
+		//this.computerPanel.enableBtns(false);
 		initializeGame();
+		difficulty = difficulty();
 		//this.computerPanel.addComputerEventListeners(gameLogicComputerBoard);
 		//this.computerPanel.enableBtns(false); //disable this when working on the startGame method
 		//startGame();
@@ -46,6 +52,8 @@ public class Game {
 	
 	public void initializeGame() {
 		this.humanPanel.startBoard(1);
+		
+		
 		
 		for (int i = 0; i < this.SHIP_SIZES.length; i++) {
 			boolean success = false;	
@@ -59,7 +67,9 @@ public class Game {
 					GameBoard.printError();
 				}	
 			} while(!success);
-		}
+		} 
+		
+		
 		
 		for (int i = 0; i < this.SHIP_SIZES.length; i++) {	
 			boolean success = false;
@@ -72,14 +82,82 @@ public class Game {
 				}	
 			} while (!success);
 		}
+		setTurn(true);
 	}
+	
+	public void addComputerEventListeners() {
+		if(getTurn()) {
+	    ActionListener listener = new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+				JButton btn = (JButton) e.getSource();
+				Coordinates location = Coordinates.parseIntoCoordinates(Integer.parseInt(btn.getText()));
+					if(getGameLogicComputerBoard().hit(location)) {		 
+						hit(btn);
+						//setTurn(false);
+					}
+					else {
+						mis(btn);
+						//setTurn(false);
+						
+					}
+				System.out.println(gameLogicComputerBoard.getOppenentScore() + " human score");
+					if(gameLogicComputerBoard.getOppenentScore() == MAX_SCORE) {
+						gameOver(1); //change the functionality
+					} else {
+						setTurn(false);
+					}
+					
+					if(!getTurn()) {
+					getComputerPanel().enableBtns(false);
+					computerMove(getDifficulty());
+					}
+	        }
+	    
+	    };
+		
+		for (int i = 0; i < getBoardSize(); i++) {
+			for (int j = 0; j < getBoardSize(); j++) {
+				this.getBtnList()[i][j].addActionListener(listener);
+			}
+		}
+	}
+	}
+	
+	public void computerMove(int difficulty) {
+		if(!getTurn()) {
+		int move = compMove.compMove(difficulty);
+		Coordinates location = Coordinates.parseIntoCoordinates(move);
+		JButton btn = humanPanel.getBtnList()[location.get_row()][location.get_col()];
+			if(getGameLogicHumanBoard().hit(location)) {		 
+				hit(btn);
+				//setTurn(true);
+			}
+			else {
+				mis(btn);
+				//setTurn(true);
+			}
+		System.out.println(gameLogicHumanBoard.getOppenentScore() + " pc score");
+			if(gameLogicHumanBoard.getOppenentScore() == MAX_SCORE) {
+				gameOver(0); //change the functionality
+				//resetGame(); 
+			} else {
+				setTurn(true);
+			}
+		
+		System.out.println("Computer's turn " + difficulty + " " + move);
+		this.getComputerPanel().enableBtns(true);
+		//setTurn(true);
+		}
+	}
+	
 
 	public int difficulty() {
 		int value = 0;
 		boolean validDificulty = false;
 		
 		while(!validDificulty) {
-		String val = JOptionPane.showInputDialog(null, "At what difficulty would you want to play? [1-3]");
+		String val = JOptionPane.showInputDialog(null, "At what difficulty would you like to play? [1-3]");
 			if (val != null) {
 				try { 
 					value = Integer.valueOf(val);
@@ -130,75 +208,66 @@ public class Game {
 	}
 	
 	public int getDifficulty() {
-		return this.dificulty;
+		return this.difficulty;
 	}
 	
-	public static boolean getTurn() {
+	public boolean getTurn() {
 		return humanTurn;
 	}
 	
-	public static void setTurn(boolean playerTurn) {
+	public void setTurn(boolean playerTurn) {
 		humanTurn = playerTurn;
 	}
 	
-	/*public void startGame() {
+	public void hit(JButton btn) {
+		btn.setBackground(Color.red);
+		//btn.setForeground(Color.white); //doesn't work disabled JButtons get default font color gray
+		btn.setOpaque(true);
+		btn.setEnabled(false);
 		
-		do {
-			if(humanTurn) {
-				this.getComputerPanel().enableBtns(true);
-				
-				
-				//this.getGameLogicComputerBoard().incrementScoreOpponent();
-				
-				this.getComputerPanel().getBtnList()[0][0].
-				
-				setTurn(false);
-				this.getComputerPanel().enableBtns(false);
-			}
-			else {
-				System.out.println("Computer hit");
-				humanTurn = true;
-			}
-			
-		} while(!this.getGameLogicComputerBoard().opponentWon());
-		
-	}*/
-	
-	public void computer() {
-		System.out.println("Computer's turn");
-		this.getComputerPanel().enableBtns(true);
+	}
+	public void mis(JButton btn) {
+		btn.setBackground(Color.white);
+		//btn.setForeground(Color.white); //doesn't work disabled JButtons get default font color gray
+		btn.setOpaque(true);
+		btn.setEnabled(false);
 	}
 	
-	public void addComputerEventListeners() {
-	    ActionListener listener = new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-				JButton btn = (JButton) e.getSource();
-				Coordinates location = Coordinates.parseIntoCoordinates(Integer.parseInt(btn.getText()));
-				if(getGameLogicComputerBoard().hit(location)) {		 
-					btn.setBackground(Color.red);
-					//btn.setForeground(Color.white); //doesn't work disabled JButtons get default font color gray
-					btn.setOpaque(true);
-					btn.setEnabled(false);
-				}
-				else {
-					btn.setBackground(Color.white);
-					//btn.setForeground(Color.white); //doesn't work disabled JButtons get default font color gray
-					btn.setOpaque(true);
-					btn.setEnabled(false);
-				}
-				getComputerPanel().enableBtns(false);
-				computer();
-	        }
-	    };
-		
-		for (int i = 0; i < getBoardSize(); i++) {
-			for (int j = 0; j < getBoardSize(); j++) {
-				this.getBtnList()[i][j].addActionListener(listener);
-			}
+	public void gameOver(int status) {
+		if(status == 1) {
+		JOptionPane.showMessageDialog(null, "Good Job! You won the game!");
+		} else if (status == 0) {
+		JOptionPane.showMessageDialog(null, "Snap! You Lost! Better luck next time!");
 		}
+		//resetGame()
 	}
-/*
+
+	
+	/*public void startGame() {
+	
+	do {
+		if(humanTurn) {
+			this.getComputerPanel().enableBtns(true);
+			
+			
+			//this.getGameLogicComputerBoard().incrementScoreOpponent();
+			
+			this.getComputerPanel().getBtnList()[0][0].
+			
+			setTurn(false);
+			this.getComputerPanel().enableBtns(false);
+		}
+		else {
+			System.out.println("Computer hit");
+			humanTurn = true;
+		}
+		
+	} while(!this.getGameLogicComputerBoard().opponentWon());
+	
+}*/	
+	
+	
+	/*
 	
 	//the major part here is still pseudocode
 	public void startGame() {
