@@ -6,7 +6,7 @@ public class Board {
 	private final int BOARD_SIZE;
 	private final int MAX_SCORE;
 	private int[][] board;
-	private int scoreOpponent;
+	private int scoreOpponent = 0;
 	
 	private Ship carrier;
 	private Ship battleship;
