@@ -149,8 +149,7 @@ public class Game {
 			gameOver(0); //change the functionality
 			//resetGame();
 		}
-		
-		System.out.println("Computer's turn " + difficulty + " " + move);
+	
 		this.getComputerPanel().enableBtns(true, gameLogicComputerBoard.getBoard());
 	}
 	
