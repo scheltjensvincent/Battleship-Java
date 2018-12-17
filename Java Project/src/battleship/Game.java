@@ -7,7 +7,8 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
+import javax.swing.SwingUtilities;
 
 import gameLogic.*;
 import gui.*;
@@ -19,7 +20,10 @@ public class Game {
 	private final int MAX_SCORE = 17;
 	
 	private GameBoard computerPanel;
-	private GameBoard humanPanel;	
+	private GameBoard humanPanel;
+	
+	private JLabel lblHumanScore;
+	private JLabel lblComputerScore;
 	
 	private Board gameLogicComputerBoard = new Board(BOARD_SIZE, MAX_SCORE);
 	private Board gameLogicHumanBoard = new Board(BOARD_SIZE, MAX_SCORE);
@@ -30,12 +34,13 @@ public class Game {
 	private int difficulty;
 	private JButton[][] btnList;
 	
-	public Game(GameBoard computerPanel, GameBoard humanPanel) {
+	public Game(GameBoard computerPanel, GameBoard humanPanel, JLabel humanScore, JLabel computerScore) {
 		this.computerPanel = computerPanel;
 		this.humanPanel = humanPanel;
 		this.btnList = computerPanel.getBtnList();
+		this.lblHumanScore = humanScore;
+		this.lblComputerScore = computerScore;
 	}
-	
 	
 	public void startProgram() {
 		//this.computerPanel.enableBtns(false);
@@ -92,7 +97,8 @@ public class Game {
 					}
 					
 					System.out.println(gameLogicComputerBoard.getOppenentScore() + " human score"); 
-				
+					lblHumanScore.setText("Your score: " + String.valueOf(gameLogicComputerBoard.getOppenentScore()));
+					
 					if(gameLogicComputerBoard.opponentWon()) {
 						gameOver(1);
 					} else {
@@ -122,6 +128,14 @@ public class Game {
 		}
 		
 		System.out.println(gameLogicHumanBoard.getOppenentScore() + " pc score");
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			   public void run() {
+				   lblComputerScore.setText("Computer Score: " + String.valueOf(gameLogicHumanBoard.getOppenentScore()));
+			   }
+		});
+
+		
 		if(gameLogicHumanBoard.opponentWon()) {
 			gameOver(0); //change the functionality
 			//resetGame();
@@ -185,6 +199,14 @@ public class Game {
 	
 	public JButton[][] getBtnList() {
 		return this.btnList;
+	}
+	
+	public JLabel getLblHumanScore() {
+		return this.lblHumanScore;
+	}
+	
+	public JLabel getLblComputerScore() {
+		return this.lblComputerScore;
 	}
 	
 	public int getDifficulty() {

@@ -16,17 +16,17 @@ public class Pane extends JPanel {
 	private JButton btnStart;
 	private JButton btnStop;
 	private JButton btnRestart;
-	private JLabel lblCompScore; 
-	private JLabel lblPlayerScore;
+	private JLabel lblCompScore = new JLabel("Computer's score: 0"); 
+	private JLabel lblPlayerScore =  new JLabel("Your score: 0");
 	private JLabel welcomeOfGame; 
 	
 	private GameBoard computerPanel = new GameBoard(Game.getBoardSize());
 	private GameBoard humanPanel = new GameBoard(Game.getBoardSize());
 	
-	private Game game = new Game(getComputerPanel(), getHumanPanel());
+	private Game game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore());
 	
-	private int compScore = game.getGameLogicComputerBoard().getOppenentScore();
-	private int humanScore = game.getGameLogicComputerBoard().getOppenentScore();
+	//private int compScore = game.getGameLogicComputerBoard().getOppenentScore();
+	//private int humanScore = game.getGameLogicComputerBoard().getOppenentScore();
 	
 	
 	public Pane() {
@@ -83,8 +83,8 @@ public class Pane extends JPanel {
 		
 		
 		//create labels
-		lblCompScore = new JLabel("Computer Score: " + compScore); //definieer een variabele compScore en voeg + compScore toe
-		lblPlayerScore = new JLabel("Your Score: " + humanScore); //definieer een variabele playerScore en voeg + playerScore toe
+		//lblCompScore = new JLabel("Computer Score: "); //definieer een variabele compScore en voeg + compScore toe
+		//lblPlayerScore = new JLabel("Your Score: "); //definieer een variabele playerScore en voeg + playerScore toe
 		welcomeOfGame = new JLabel("Welcome to the Battleship game, hit start to play!");
 		
 		//create divider
@@ -117,8 +117,8 @@ public class Pane extends JPanel {
 		paneConstraints.gridx = 1;
 		paneConstraints.gridy = 1;
 		paneConstraints.insets = new Insets(0,20,0,0);  
-		add(lblCompScore, paneConstraints);
-		lblCompScore.setVisible(false);
+		add(game.getLblComputerScore(), paneConstraints);
+		game.getLblComputerScore().setVisible(false);
 
 		paneConstraints.gridx = 1;
 		paneConstraints.gridy = 0;
@@ -138,8 +138,8 @@ public class Pane extends JPanel {
 		paneConstraints.gridx = 1;
 		paneConstraints.gridy = 3;
 		paneConstraints.insets = new Insets(0,20,0,0);  
-		add(lblPlayerScore, paneConstraints);
-		lblPlayerScore.setVisible(false);
+		add(game.getLblHumanScore(), paneConstraints);
+		game.getLblHumanScore().setVisible(false);
 		
 	}
 	
@@ -147,9 +147,16 @@ public class Pane extends JPanel {
 		return this.humanPanel;
 	}
 	
-	
 	public GameBoard getComputerPanel() {
 		return this.computerPanel;
+	}
+	
+	public JLabel getHumanScore() {
+		return this.lblPlayerScore;
+	}
+	
+	public JLabel getComputerScore() {
+		return this.lblCompScore;
 	}
 }
 
