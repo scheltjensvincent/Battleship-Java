@@ -14,7 +14,6 @@ import gameLogic.*;
 import gui.*;
 
 public class Game {
-	
 	private final static int BOARD_SIZE = 10;
 	private final int[] SHIP_SIZES = new int[] {5, 4, 3, 3, 2};
 	private final int MAX_SCORE = 17;
@@ -86,7 +85,10 @@ public class Game {
 			do {
 				Ship compShip = Ship.getRandomShip(SHIP_SIZES[i], BOARD_SIZE);
 				if (this.gameLogicComputerBoard.addShip(compShip) == true) {
-					//this.computerPanel.placeShipGuiBoard(compShip, false);	
+					/*
+					 * FOR TESTING PURPOSES ONLY
+					 * this.computerPanel.placeShipGuiBoard(compShip, false);
+					 */
 					success = true;
 				}	
 			} while (!success);
@@ -105,9 +107,6 @@ public class Game {
 					else {
 						miss(btn);
 					}
-					
-					System.out.println(gameLogicComputerBoard.getOppenentScore() + " human score"); 
-					lblHumanScore.setText("Your score: " + String.valueOf(gameLogicComputerBoard.getOppenentScore()));
 					
 					if(gameLogicComputerBoard.opponentWon()) {
 						gameOver(1);
@@ -139,8 +138,6 @@ public class Game {
 			compMove.hit(false);
 		}
 		
-		System.out.println(gameLogicHumanBoard.getOppenentScore() + " pc score");
-		
 		SwingUtilities.invokeLater(new Runnable() {
 			   public void run() {
 				   lblComputerScore.setText("Computer Score: " + String.valueOf(gameLogicHumanBoard.getOppenentScore()));
@@ -157,7 +154,7 @@ public class Game {
 		this.getComputerPanel().enableBtns(true, gameLogicComputerBoard.getBoard());
 	}
 	
-
+	
 	public int difficulty() {
 		int value = 0;
 		boolean validDificulty = false;

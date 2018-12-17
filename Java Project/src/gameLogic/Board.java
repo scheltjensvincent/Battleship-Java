@@ -8,12 +8,6 @@ public class Board {
 	private int[][] board;
 	private int scoreOpponent = 0;
 	
-	private Ship carrier;
-	private Ship battleship;
-	private Ship cruiser;
-	private Ship submarine;
-	private Ship destroyer;
-	
 	ArrayList<Ship> ships = new ArrayList<Ship>();
 	
 	public Board(int board_size, int max_score) {
@@ -31,13 +25,7 @@ public class Board {
 	}
 	
 	public ArrayList<Ship> getShips(){
-		ArrayList<Ship> ships = new ArrayList<Ship>();
-		ships.add(carrier);
-		ships.add(battleship);
-		ships.add(cruiser);
-		ships.add(submarine);
-		ships.add(destroyer);
-		return ships;
+		return this.ships;
 	}
 	
 	public void incrementScoreOpponent() {
@@ -92,7 +80,6 @@ public class Board {
 		if (board[coordinate.get_row()][coordinate.get_col()] == 1) {
 			this.getBoard()[coordinate.get_row()][coordinate.get_col()] = -1; //-1 is a hit
 			this.incrementScoreOpponent();
-			//System.out.println(scoreOpponent);
 			return true;
 		} else {
 			this.getBoard()[coordinate.get_row()][coordinate.get_col()] = 9; //9 is no hit
