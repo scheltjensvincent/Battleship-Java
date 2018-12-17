@@ -7,20 +7,19 @@ public class ComputerMove {
 
 	private int compMove;
 	private int algoMove = 0;
-	private int shots;
-	
 	private boolean hit;
 	private boolean down;
 	private boolean up;
 	private boolean left;
 	private boolean right;
 	
-	
 	private ArrayList<Integer> shotsFired = new ArrayList<Integer>();
+	
 	
 	public ComputerMove() {
 		
 	}
+	
 
 	public int compMove(int dificulty) {
 		if(dificulty == 1) {
@@ -29,13 +28,10 @@ public class ComputerMove {
 		if(dificulty == 2) {
 			compMove = algorithmOne();
 		}
-		if(dificulty == 3) {
-			compMove = algorithmTwo();
-		}
 		return compMove;
 	}
 	
-
+	
 	public int randomValue() {
 		boolean validLoc = false;
 		int randMove = 0;
@@ -51,6 +47,7 @@ public class ComputerMove {
 		
 		return randMove;
 	}
+	
 	
 	public int algorithmOne() {
 		boolean validLoc = false;
@@ -79,31 +76,25 @@ public class ComputerMove {
 			} else {
 				algoMove = getRandNum(0, 99);
 			}
-			
 			if(shotsFired.contains(algoMove)) {
 				validLoc = false;
 			} else { 
 				shotsFired.add(algoMove);
 				validLoc = true;
 			}
-	}
-		shots++;
-		//shotsFired.add(algoMove);
-		System.out.println(shotsFired);
-		System.out.println(shotsFired.size());
-		System.out.println(shots);
-		return algoMove;
+		}
+	return algoMove;
 	}
 
 	
 	public void hit(boolean hitShot) {
-		
 		if(hitShot) {
 			hit = true;
 		} else {
 			hit = false;
 		}
 	}
+	
 	
 	private int left() {
 		down = false;
@@ -119,10 +110,10 @@ public class ComputerMove {
 				algoMove = getRandNum(0, 99);
 			}
 		}
-	return algoMove;
+		return algoMove;
 	}
 
-
+	
 	private int right() {
 		down = false;
 		up = false;
@@ -138,7 +129,7 @@ public class ComputerMove {
 				left();
 			}
 		}
-	return algoMove;
+		return algoMove;
 	}
 
 
@@ -158,7 +149,7 @@ public class ComputerMove {
 				algoMove = getRandNum(0,99);
 			}
 		}	
-	return algoMove;
+		return algoMove;
 	}
 
 
@@ -178,31 +169,20 @@ public class ComputerMove {
 				up();
 			}
 		}
-	return algoMove;
+		return algoMove;
 	}
-
-
-	private int algorithmTwo() {
-		//probability density function || Monte Carlo  depending on the time left
-		//to do this we need to know which ships are still on the board and the respective lengths
-		int value = 0; 
-		return value;
-	}
-
-	public int getCompMove() {
-		return this.compMove;
-	}
+	
 	
 	public boolean validLoc(int a) {
 		for(int i : shotsFired) {
 			if(i == a) {
 				return false;
 			}
-		if(a < 0 || a > 99) {
+			if(a < 0 || a > 99) {
 			return false;
+			}
 		}
-		}
-	return true;
+		return true;
 	}
 	
 		
