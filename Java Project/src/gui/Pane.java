@@ -12,6 +12,7 @@ import java.awt.*;
 import java.util.*;
 
 public class Pane extends JPanel {
+	private static final long serialVersionUID = -7518568006313720524L;
 	private JLabel lblDivider;
 	private JButton btnStart;
 	private JButton btnStop;
