@@ -30,7 +30,6 @@ public class Game {
 	
 	private ComputerMove compMove = new ComputerMove();
 	
-	
 	private int difficulty;
 	private JButton[][] btnList;
 	
@@ -86,7 +85,7 @@ public class Game {
 			do {
 				Ship compShip = Ship.getRandomShip(SHIP_SIZES[i], BOARD_SIZE);
 				if (this.gameLogicComputerBoard.addShip(compShip) == true) {
-					//this.computerPanel.placeShipGuiBoard(compShip, false);	
+					//this.computerPanel.placeShipGuiBoard(compShip);	
 					success = true;
 				}	
 			} while (!success);
@@ -150,7 +149,6 @@ public class Game {
 		
 		if(gameLogicHumanBoard.opponentWon()) {
 			gameOver(0); //change the functionality
-			//resetGame();
 		}
 		
 		System.out.println("Computer's turn " + difficulty + " " + move);
@@ -163,17 +161,17 @@ public class Game {
 		boolean validDificulty = false;
 		
 		while(!validDificulty) {
-		String val = JOptionPane.showInputDialog(null, "At what difficulty would you like to play? [1-3]");
+		String val = JOptionPane.showInputDialog(null, "At what difficulty would you like to play? [1-2]");
 			if (val != null) {
 				try { 
 					value = Integer.valueOf(val);
 						if (value >= 1 && value < 4) {
 							validDificulty = true;
 						} else {
-							JOptionPane.showMessageDialog(null, "Please enter a valid dificulty between 1 and 3");
+							JOptionPane.showMessageDialog(null, "Please enter a valid difficulty between 1 and 2");
 						}
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "Please Enter a Valid Location!");
+					JOptionPane.showMessageDialog(null, "Please enter a valid difficulty!");
 					validDificulty = false;
 				}
 			} else {
@@ -183,6 +181,27 @@ public class Game {
 			
 		}
 	return value;
+	}
+	
+	
+	public void hit(JButton btn) {
+		btn.setBackground(Color.red);
+		btn.setOpaque(true);
+		btn.setEnabled(false);
+	}
+	public void miss(JButton btn) {
+		btn.setBackground(Color.white);
+		btn.setOpaque(true);
+		btn.setEnabled(false);
+	}
+	
+	public void gameOver(int status) {
+		if(status == 1) {
+		JOptionPane.showMessageDialog(null, "Good Job! You won the game!");
+		} else if (status == 0) {
+		JOptionPane.showMessageDialog(null, "Snap! You Lost! Better luck next time!");
+		}
+		//resetGame()
 	}
 	
 	public static int getBoardSize() {
@@ -223,26 +242,6 @@ public class Game {
 	
 	public int getDifficulty() {
 		return this.difficulty;
-	}
-	
-	public void hit(JButton btn) {
-		btn.setBackground(Color.red);
-		btn.setOpaque(true);
-		btn.setEnabled(false);
-	}
-	public void miss(JButton btn) {
-		btn.setBackground(Color.white);
-		btn.setOpaque(true);
-		btn.setEnabled(false);
-	}
-	
-	public void gameOver(int status) {
-		if(status == 1) {
-		JOptionPane.showMessageDialog(null, "Good Job! You won the game!");
-		} else if (status == 0) {
-		JOptionPane.showMessageDialog(null, "Snap! You Lost! Better luck next time!");
-		}
-		//resetGame()
 	}
 
 }

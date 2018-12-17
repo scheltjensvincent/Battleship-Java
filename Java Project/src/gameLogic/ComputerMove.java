@@ -185,6 +185,10 @@ public class ComputerMove {
 		return true;
 	}
 	
+	public int getCompMove() {
+		return this.compMove;
+	}
+	
 		
 	private int getRandNum(int min, int max) {
 		down = false;
