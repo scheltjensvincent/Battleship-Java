@@ -71,8 +71,9 @@ public class Pane extends JPanel {
 		
 		btnRestart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			humanPanel.resetBoard();
-			computerPanel.resetBoard();
+			//humanPanel.resetBoard();
+			//computerPanel.resetBoard();
+			resetBoard();
 			}	
 		});
 		
@@ -142,6 +143,13 @@ public class Pane extends JPanel {
 		add(game.getLblHumanScore(), paneConstraints);
 		game.getLblHumanScore().setVisible(false);
 		
+	}
+	
+	public void resetBoard() {
+		computerPanel = new GameBoard(Game.getBoardSize());
+		humanPanel = new GameBoard(Game.getBoardSize());
+		game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore());
+		game.startProgram();
 	}
 	
 	public GameBoard getHumanPanel() {

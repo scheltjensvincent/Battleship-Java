@@ -107,6 +107,12 @@ public class Game {
 						miss(btn);
 					}
 					
+					SwingUtilities.invokeLater(new Runnable() {
+						   public void run() {
+							   lblHumanScore.setText("Your Score: " + String.valueOf(gameLogicComputerBoard.getOppenentScore()));
+						   }
+					});
+					
 					if(gameLogicComputerBoard.opponentWon()) {
 						gameOver(1);
 					} else {
@@ -171,7 +177,7 @@ public class Game {
 					validDificulty = false;
 				}
 			} else {
-				value = -1;
+				value = 1;
 				validDificulty = true;
 			}
 			
