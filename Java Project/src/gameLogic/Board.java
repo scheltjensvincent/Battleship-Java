@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Board {
 	private final int BOARD_SIZE;
+	private final int MAX_SCORE;
 	private int[][] board;
-	private int maxScore;
 	private int scoreOpponent;
 	
 	private Ship carrier;
@@ -16,9 +16,10 @@ public class Board {
 	
 	ArrayList<Ship> ships = new ArrayList<Ship>();
 	
-	public Board(int board_size) {
+	public Board(int board_size, int max_score) {
 		this.BOARD_SIZE = board_size;
 		board = new int[BOARD_SIZE][BOARD_SIZE];
+		this.MAX_SCORE = max_score;
 	}
 	
 	public int[][] getBoard() {
@@ -27,10 +28,6 @@ public class Board {
 	
 	public int getOppenentScore() {
 		return this.scoreOpponent;
-	}
-	
-	public int getMaxScore() {
-		return this.maxScore;
 	}
 	
 	public ArrayList<Ship> getShips(){
@@ -43,10 +40,6 @@ public class Board {
 		return ships;
 	}
 	
-	public void incrementMaxScore() {
-		this.maxScore++;
-	}
-	
 	public void incrementScoreOpponent() {
 		this.scoreOpponent++;
 	}
@@ -56,7 +49,6 @@ public class Board {
 			for (int i = ship.getStartco().get_row(); i <= ship.getEndco().get_row(); i++) {
 				for (int j = ship.getStartco().get_col(); j <= ship.getEndco().get_col(); j++) {
 						this.getBoard()[i][j] = 1;
-						this.incrementMaxScore();
 				}		
 			}
 			ships.add(ship);
@@ -98,22 +90,19 @@ public class Board {
 	
 	public boolean hit(Coordinates coordinate) {
 		if (board[coordinate.get_row()][coordinate.get_col()] == 1) {
-			this.getBoard()[coordinate.get_row()][coordinate.get_col()] = -1;
+			this.getBoard()[coordinate.get_row()][coordinate.get_col()] = -1; //-1 is a hit
 			this.incrementScoreOpponent();
 			//System.out.println(scoreOpponent);
 			return true;
 		} else {
+			this.getBoard()[coordinate.get_row()][coordinate.get_col()] = 9; //9 is no hit
 			return false;
 		}
 		
 	}
-	/*
-	public boolean getShotFired() {
-		return true;
-	}*/
 	
 	public boolean opponentWon() {
-		if (this.getOppenentScore() == this.getMaxScore()) {
+		if (this.getOppenentScore() == this.MAX_SCORE) {
 			return true;
 		}
 		else {

@@ -1,12 +1,16 @@
 package battleship;
 
+import java.util.ArrayList;
+
+import gameLogic.Coordinates;
+
+
 public class Test {
-
+	
+	
+	
 	public static void main(String[] args) {
-		double x = 0.0;
-		double y = 1.0;
-		System.out.println(x + " " + y);
-
+		
 	}
 
 }

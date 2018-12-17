@@ -16,6 +16,7 @@ import javax.swing.KeyStroke;
 
 import battleship.Game;
 
+import java.util.ArrayList;
 import java.util.Random;
 import gameLogic.*;
 
@@ -101,10 +102,20 @@ public class GameBoard {
 		}	
 	}
 	
-	public void enableBtns(boolean bln) {
+	/*public void enableBtns(boolean bln) {
 		for (int i = 0; i < this.getBoardSize(); i++) {
 			for (int j = 0; j < this.getBoardSize(); j++) {
 				this.getBtnList()[i][j].setEnabled(bln);
+			}
+		}
+	}*/
+	
+	public void enableBtns(boolean bln, int[][] board) {
+		for (int i = 0; i < this.getBoardSize(); i++) {
+			for (int j = 0; j < this.getBoardSize(); j++) {
+				if (board[i][j] == 0 || board[i][j] == 1) {
+					this.getBtnList()[i][j].setEnabled(bln);
+				}
 			}
 		}
 	}
