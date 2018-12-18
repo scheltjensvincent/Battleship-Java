@@ -31,6 +31,7 @@ public class Game {
 	
 	private JLabel lblHumanScore;
 	private JLabel lblComputerScore;
+	private JLabel lblPreviousScores;
 	
 	private Board gameLogicComputerBoard = new Board(BOARD_SIZE, MAX_SCORE);
 	private Board gameLogicHumanBoard = new Board(BOARD_SIZE, MAX_SCORE);
@@ -44,12 +45,13 @@ public class Game {
 	
 	
 	//Gathers all objects from the Pane class that will be need to be updated based on events in this class
-	public Game(GameBoard computerPanel, GameBoard humanPanel, JLabel humanScore, JLabel computerScore) {
+	public Game(GameBoard computerPanel, GameBoard humanPanel, JLabel humanScore, JLabel computerScore, JLabel previousScores) {
 		this.computerPanel = computerPanel;
 		this.humanPanel = humanPanel;
 		this.btnList = computerPanel.getBtnList();
 		this.lblHumanScore = humanScore;
 		this.lblComputerScore = computerScore;
+		this.lblPreviousScores = previousScores;
 	}
 	
 	
