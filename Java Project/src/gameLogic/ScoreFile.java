@@ -4,26 +4,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+//import com.sun.tools.javac.parser.*;
+
+
 public class ScoreFile {
 	
-	//private int finalScore;
-	//private String name;
 	
 	public ScoreFile() {
 
 	}
 	
-	/*
-	public ScoreFile(int finalScore, String name) {
-		this.finalScore = finalScore;
-		this.name = name;
-	}
-	*/
 	
 	public void printScore(String name, int finalScore) {
 		try {
-			FileWriter fileW = new FileWriter("scores.txt");
-			PrintWriter printW = new PrintWriter(fileW);
+			PrintWriter printW = new PrintWriter(new FileWriter("scores.txt", true));
 	
 			printW.println(name + ": " + finalScore);
 			printW.close();
@@ -33,8 +27,24 @@ public class ScoreFile {
 		}
 	}
 	
-	public void readScore() {
+	public void readLastScore() {
 		
 	}
+	
+	/* 
+	 public static void maxScore(String file) throws IOException {
+	        Scanner fileScanner = new Scanner(new File(file));
+	        int max = fileScanner.nextInt();
+	        while (fileScanner.hasNextInt()) {
+	            int num = fileScanner.nextInt();
+	            if (num > max) {
+	                max=num;
+	            }
+	        }
+	        System.out.println(max);
+	        fileScanner.close();
+	    }
+	    
+	    */
 }
 	
