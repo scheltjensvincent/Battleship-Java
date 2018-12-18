@@ -59,6 +59,7 @@ public class Game {
 	public void startProgram() {
 		initializeGame();
 		difficulty = difficulty();
+		JOptionPane.showMessageDialog(null, "The game is about to begin!\n\n" + "You get the first move.\n" + "To fire click on the computer's squares.");
 		
 		this.addComputerEventListeners();
 		
@@ -67,8 +68,6 @@ public class Game {
 				   lblHighScore.setText("High Score: " + String.valueOf(scoreFile.highScore()));
 			   }
 		});
-		
-		System.out.println(scoreFile.highScore());
 	}
 	
 	
@@ -233,9 +232,15 @@ public class Game {
 	//Display that the game is over and who has won
 	public void gameOver(int status) {
 		if(status == 1) {
-		JOptionPane.showMessageDialog(null, "Good Job! You won the game! Press restart to start over");
+		JOptionPane.showMessageDialog(null, "Good Job! You won the game!\n\n" 
+											+"You won with " + playerAhead() + " hits more than the computer\n"
+											+"Your final score is therefore " + finalPlayerScore(status) + ". (17 x " + playerAhead() + ")\n"
+											+"Press restart to start over.");
 		} else if (status == 0) {
-		JOptionPane.showMessageDialog(null, "Snap! You Lost! Better luck next time! Press restart to start over.");
+		JOptionPane.showMessageDialog(null, "Snap! You Lost! \n\n"
+											+"Your final score is therefore " + finalPlayerScore(status) + ".\n" 
+											+"Better luck next time!\n"
+											+"Press restart to start over.");
 		}
 		scoreFile.printScore(finalPlayerScore(status)); 
 	}
@@ -249,11 +254,14 @@ public class Game {
 		} else if (status == 0) {
 			finalScore = 0;	
 		}
-		System.out.println(finalScore);
 		return finalScore;
 		
 	}
 	
+	private int playerAhead() {
+		int scoreAhead = gameLogicComputerBoard.getOppenentScore()-gameLogicHumanBoard.getOppenentScore();
+		return scoreAhead;
+	}
 	
 	//Getters and setters for different objects from this class
 	public static int getBoardSize() {

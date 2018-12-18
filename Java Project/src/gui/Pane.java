@@ -125,7 +125,7 @@ public class Pane extends JPanel {
 		
 		paneConstraints.gridx = 0;
 		paneConstraints.gridy = 5;
-		paneConstraints.insets = new Insets(5,0,0,0);  
+		paneConstraints.insets = new Insets(5,0,0,0);
 		add(lblYourBoard, paneConstraints);
 		lblYourBoard.setVisible(false);
 		

@@ -168,7 +168,6 @@ public class ComputerMove {
 		
 			if(algoMove < 0) {
 				algoMove += 10;
-				//algoMove = getRandNum(0,99); // this was a mistake, makes more sense to go and check right here
 				right();
 			}
 		}	

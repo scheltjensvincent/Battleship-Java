@@ -17,8 +17,6 @@ public class ScoreFile {
 	public void printScore(int finalScore) {
 		try {
 			PrintWriter printW = new PrintWriter(new FileWriter("scores.txt", true));
-	
-			//printW.println(name + ": " + finalScore);
 			printW.println(finalScore);
 			printW.close();
 			
