@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class ScoreFile {
 	
-	
 	public ScoreFile() {
 
 	}
@@ -28,25 +27,26 @@ public class ScoreFile {
 		}
 	}
 	 
-	 public void highScore() {
+	 public int highScore() {
+		int highScore = 0;
 	 	try {
 	        Scanner scanner = new Scanner(new FileReader("scores.txt"));
-	        int highScore = scanner.nextInt();
+	        highScore = scanner.nextInt();
 		        while (scanner.hasNextInt()) {
 		            int n = scanner.nextInt();
 		            if (n > highScore) {
 		               highScore = n;
 		            }
 		        }
-		        System.out.println(highScore);
-		        scanner.close(); 
+		        scanner.close();
 		        
 	 	} catch (IOException e) {
 			e.printStackTrace();
-	 	}
+	 	} 
+	 	
+	 	return highScore;
+	 	
 	}
-	 
-	        
-	    
+
 }
 	

@@ -31,7 +31,7 @@ public class Game {
 	
 	private JLabel lblHumanScore;
 	private JLabel lblComputerScore;
-	private JLabel lblHighScores;
+	private JLabel lblHighScore;
 	
 	private Board gameLogicComputerBoard = new Board(BOARD_SIZE, MAX_SCORE);
 	private Board gameLogicHumanBoard = new Board(BOARD_SIZE, MAX_SCORE);
@@ -45,13 +45,13 @@ public class Game {
 	
 	
 	//Gathers all objects from the Pane class that will be need to be updated based on events in this class
-	public Game(GameBoard computerPanel, GameBoard humanPanel, JLabel humanScore, JLabel computerScore, JLabel highScores) {
+	public Game(GameBoard computerPanel, GameBoard humanPanel, JLabel humanScore, JLabel computerScore, JLabel highScore) {
 		this.computerPanel = computerPanel;
 		this.humanPanel = humanPanel;
 		this.btnList = computerPanel.getBtnList();
 		this.lblHumanScore = humanScore;
 		this.lblComputerScore = computerScore;
-		this.lblHighScores = highScores;
+		this.lblHighScore = highScore;
 	}
 	
 	
@@ -59,7 +59,16 @@ public class Game {
 	public void startProgram() {
 		initializeGame();
 		difficulty = difficulty();
+		
 		this.addComputerEventListeners();
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			   public void run() {
+				   lblHighScore.setText("High Score: " + String.valueOf(scoreFile.highScore()));
+			   }
+		});
+		
+		System.out.println(scoreFile.highScore());
 	}
 	
 	
@@ -103,7 +112,6 @@ public class Game {
 					 * FOR TESTING PURPOSES ONLY
 					 * this.computerPanel.placeShipGuiBoard(compShip);
 					 */
-					this.computerPanel.placeShipGuiBoard(compShip);
 					success = true;
 				}	
 			} while (!success);
@@ -128,7 +136,7 @@ public class Game {
 					
 					SwingUtilities.invokeLater(new Runnable() {
 						   public void run() {
-							   lblHumanScore.setText("Your Score: " + String.valueOf(gameLogicComputerBoard.getOppenentScore()));
+							   lblHumanScore.setText("Your hits: " + String.valueOf(gameLogicComputerBoard.getOppenentScore() + "/" + MAX_SCORE));
 						   }
 					});
 					
@@ -165,7 +173,7 @@ public class Game {
 		
 		SwingUtilities.invokeLater(new Runnable() {
 			   public void run() {
-				   lblComputerScore.setText("Computer Score: " + String.valueOf(gameLogicHumanBoard.getOppenentScore()));
+				   lblComputerScore.setText("Computer's hits: " + String.valueOf(gameLogicHumanBoard.getOppenentScore() + "/" + MAX_SCORE));
 			   }
 		});
 
@@ -230,7 +238,6 @@ public class Game {
 		JOptionPane.showMessageDialog(null, "Snap! You Lost! Better luck next time! Press restart to start over.");
 		}
 		scoreFile.printScore(finalPlayerScore(status)); 
-		scoreFile.highScore();
 	}
 	
 	private int finalPlayerScore(int status) {
@@ -283,6 +290,10 @@ public class Game {
 	
 	public JLabel getLblComputerScore() {
 		return this.lblComputerScore;
+	}
+	
+	public JLabel getLblHighScore() {
+		return this.lblHighScore;
 	}
 	
 	public int getDifficulty() {

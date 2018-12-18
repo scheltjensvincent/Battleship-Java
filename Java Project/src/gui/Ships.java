@@ -38,7 +38,7 @@ public class Ships {
 		boolean validDir = false; 
 		
 		while(!validDir) {
-		String dir = JOptionPane.showInputDialog(null, "Direction: Enter 1 for 'Right', 2 for 'Left', 3 for 'Up' or 4 for 'Down'");
+		String dir = JOptionPane.showInputDialog(null, "Direction:\n" + "Enter 1 for 'Right'\n" + "Enter 2 for 'Left'\n" + "Enter 3 for 'Up'\n" + "Enter 4 for 'Down'");
 			if(dir != null) {
 				try { 
 					direction = Integer.valueOf(dir);
@@ -52,7 +52,7 @@ public class Ships {
 					validDir = false;
 				}
 			} else {
-				direction = -1;
+				direction = 1;
 				validDir = true;
 			}
 			

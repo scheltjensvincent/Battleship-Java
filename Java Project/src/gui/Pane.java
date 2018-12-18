@@ -10,19 +10,23 @@ import java.awt.*;
 
 public class Pane extends JPanel {
 	private static final long serialVersionUID = -7518568006313720524L;
-	private JLabel lblDivider;
+	
 	private JButton btnStart;
 	private JButton btnStop;
 	private JButton btnRestart;
-	private JLabel lblCompScore = new JLabel("Computer's score: 0"); 
-	private JLabel lblPlayerScore =  new JLabel("Your score: 0");
-	private JLabel lblHighScores = new JLabel("Current highscore:");
+	
+	private JLabel lblDivider;
+	private JLabel lblCompScore = new JLabel("Computer's hits: 0/17"); 
+	private JLabel lblPlayerScore =  new JLabel("Your hits: 0/17");
+	private JLabel lblHighScore = new JLabel("High Score:");
 	private JLabel welcomeOfGame; 
+	private JLabel lblYourBoard = new JLabel("Lower board: your ships");
+	private JLabel lblComputerBoard = new JLabel("Upper board: computer's ships");
 	
 	private GameBoard computerPanel = new GameBoard(Game.getBoardSize());
 	private GameBoard humanPanel = new GameBoard(Game.getBoardSize());
 	
-	private Game game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore(), getHighScores());
+	private Game game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore(), getHighScore());
 	
 	
 	public Pane() {
@@ -51,8 +55,12 @@ public class Pane extends JPanel {
 				lblDivider.setVisible(true);
 				computerPanel.getBoard().setVisible(true);
 				
+				lblYourBoard.setVisible(true);
+				lblComputerBoard.setVisible(true);
+				
 				lblCompScore.setVisible(true);
 				lblPlayerScore.setVisible(true);
+				lblHighScore.setVisible(true);
 				
 				btnRestart.setVisible(true);
 				btnStop.setVisible(true);
@@ -95,44 +103,61 @@ public class Pane extends JPanel {
 		
 		paneConstraints.gridx = 0;
 		paneConstraints.gridy = 1;
+		paneConstraints.insets = new Insets(0,0,5,0);  
+		add(lblComputerBoard, paneConstraints);
+		lblComputerBoard.setVisible(false);
+		
+		paneConstraints.gridx = 0;
+		paneConstraints.gridy = 2;
 		add(computerPanel.getBoard(), paneConstraints);
 		computerPanel.getBoard().setVisible(false);
 		
 		paneConstraints.gridx = 0;
-		paneConstraints.gridy = 2;
+		paneConstraints.gridy = 3;
 		paneConstraints.fill = GridBagConstraints.HORIZONTAL;
 		add(lblDivider, paneConstraints);
 		lblDivider.setVisible(false);
 		
 		paneConstraints.gridx = 0;
-		paneConstraints.gridy = 3;
+		paneConstraints.gridy = 4;
 		add(humanPanel.getBoard(), paneConstraints);
 		humanPanel.getBoard().setVisible(false);
 		
+		paneConstraints.gridx = 0;
+		paneConstraints.gridy = 5;
+		paneConstraints.insets = new Insets(5,0,0,0);  
+		add(lblYourBoard, paneConstraints);
+		lblYourBoard.setVisible(false);
+		
+		paneConstraints.gridx = 0;
+		paneConstraints.gridy = 6;
+		paneConstraints.insets = new Insets(20,0,0,0);  
+		add(game.getLblHighScore(), paneConstraints);
+		game.getLblHighScore().setVisible(false);
+		
 		//fill the second column with the scores and options
 		paneConstraints.gridx = 1;
-		paneConstraints.gridy = 1;
+		paneConstraints.gridy = 2;
 		paneConstraints.insets = new Insets(0,20,0,0);  
 		add(game.getLblComputerScore(), paneConstraints);
 		game.getLblComputerScore().setVisible(false);
 
 		paneConstraints.gridx = 1;
 		paneConstraints.gridy = 0;
-		add(btnStart, paneConstraints);
-				
+		add(btnStart, paneConstraints);	
 		
 		paneConstraints.gridx = 1;
-		paneConstraints.gridy = 2;
+		paneConstraints.gridy = 3;
 		add(btnRestart, paneConstraints);
 		btnRestart.setVisible(false);
 		
 		paneConstraints.gridx = 2;
-		paneConstraints.gridy = 2;
+		paneConstraints.gridy = 3;
 		add(btnStop, paneConstraints);
 		btnStop.setVisible(false);
 		
 		paneConstraints.gridx = 1;
-		paneConstraints.gridy = 3;
+		paneConstraints.gridy = 4;
 		paneConstraints.insets = new Insets(0,20,0,0);  
 		add(game.getLblHumanScore(), paneConstraints);
 		game.getLblHumanScore().setVisible(false);
@@ -143,10 +168,10 @@ public class Pane extends JPanel {
 			   public void run() {
 				   computerPanel = new GameBoard(Game.getBoardSize());
 				   humanPanel = new GameBoard(Game.getBoardSize());
-				   lblCompScore = new JLabel("Computer's score: 0"); 
-				   lblPlayerScore =  new JLabel("Your score: 0");
-				   lblHighScores = new JLabel("Previous Scores:");
-				   game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore(), getHighScores());
+				   lblCompScore = new JLabel("Computer's hits: 0/17"); 
+				   lblPlayerScore =  new JLabel("Your hits: 0/17");
+				   lblHighScore = new JLabel("High Score:");
+				   game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore(), getHighScore());
 				  
 				   removeAll();
 				   repaint();
@@ -173,8 +198,8 @@ public class Pane extends JPanel {
 		return this.lblCompScore;
 	}
 	
-	public JLabel getHighScores() {
-		return this.lblHighScores;
+	public JLabel getHighScore() {
+		return this.lblHighScore;
 	}
 }
 
