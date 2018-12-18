@@ -37,6 +37,8 @@ public class Game {
 	
 	private ComputerMove compMove = new ComputerMove();
 	
+	private ScoreFile scoreFile = new ScoreFile();
+	
 	private int difficulty;
 	private JButton[][] btnList;
 	
@@ -99,6 +101,7 @@ public class Game {
 					 * FOR TESTING PURPOSES ONLY
 					 * this.computerPanel.placeShipGuiBoard(compShip);
 					 */
+					this.computerPanel.placeShipGuiBoard(compShip);
 					success = true;
 				}	
 			} while (!success);
@@ -220,10 +223,25 @@ public class Game {
 	//Display that the game is over and who has won
 	public void gameOver(int status) {
 		if(status == 1) {
-		JOptionPane.showMessageDialog(null, "Good Job! You won the game! Press 'restart' to start over");
+		JOptionPane.showMessageDialog(null, "Good Job! You won the game! Press restart to start over");
 		} else if (status == 0) {
-		JOptionPane.showMessageDialog(null, "Snap! You Lost! Better luck next time! Press 'restart' to start over.");
+		JOptionPane.showMessageDialog(null, "Snap! You Lost! Better luck next time! Press restart to start over.");
 		}
+		scoreFile.printScore("Name", finalPlayerScore(status)); //get the exact name here
+	}
+	
+	private int finalPlayerScore(int status) {
+		int finalScore = 0;
+		int multiplicator = 0;
+		if(status == 1) {
+			multiplicator = (gameLogicComputerBoard.getOppenentScore()-gameLogicHumanBoard.getOppenentScore());
+			finalScore = gameLogicComputerBoard.getOppenentScore() * multiplicator;
+		} else if (status == 0) {
+			finalScore = 0;	
+		}
+		System.out.println(finalScore);
+		return finalScore;
+		
 	}
 	
 	

@@ -30,7 +30,7 @@ public class Ships {
 			}
 			
 		}
-	return cellValue;
+		return cellValue;
 	}
 	
 	public static int getDirection() {
@@ -57,8 +57,9 @@ public class Ships {
 			}
 			
 		}
-	return direction;
+		return direction;
 	}
+	
 	
 	public static Ship getOneShip(int length) {
 		Ship ship;
@@ -101,12 +102,6 @@ public class Ships {
 		
 		return ship;
 	}
-	
-
-	
-	// we first want to construct a shape based on the entered data, then we want to check whether the the ship can still
-	// be placed on the board
-	// ship: start_coordinate(X, Y) & end_coordinate(X,Y)
 	
 }
 		

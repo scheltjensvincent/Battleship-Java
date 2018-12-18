@@ -37,7 +37,7 @@ public class ComputerMove {
 		return compMove;
 	}
 	
-	//Random 
+	//Random value generation and check if already used
 	public int randomValue() {
 		boolean validLoc = false;
 		int randMove = 0;
@@ -56,10 +56,13 @@ public class ComputerMove {
 	
 	
 	/*
+	 * 
 	 * Hunt & Target algorithm implementation
 	 * Generates random moves until hit is registered
 	 * When a hit is registered go down, up, right or left to take out the entire ship
 	 * When looped through this sequence and no hits anymore get new random moves until a new hit is registered
+	 * This can be made more efficient by checking the diagonals from large -> small when no hits are made
+	 * 
 	 */
 	public int algorithmOne() {
 		boolean validLoc = false;
