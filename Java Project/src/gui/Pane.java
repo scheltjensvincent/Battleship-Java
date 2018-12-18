@@ -3,13 +3,10 @@ package gui;
 import javax.swing.*;
 
 import battleship.Game;
-import gameLogic.Ship;
-import gameLogic.*;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.*;
-import java.util.*;
 
 public class Pane extends JPanel {
 	private static final long serialVersionUID = -7518568006313720524L;
