@@ -1,6 +1,12 @@
 package gameLogic;
 
+/*
+ * defines coordinates and correctly parses an integer into coordinates
+ */
+
 public class Coordinates {
+	
+	//declaration of the variables used
 	private int row;
 	private int col;
 	
@@ -8,27 +14,14 @@ public class Coordinates {
 		
 	}
 	
+	//coordinate made up out of a row and col
 	public Coordinates(int row, int col) {
 		this.set_row(row);
 		this.set_col(col);
 	}
 	
-	public void set_row(int row) {	
-		this.row = row;
-	}
 	
-	public void set_col(int col) {
-		this.col = col;
-	}
-	
-	public int get_row(){
-		return this.row;
-	}
-	
-	public int get_col(){
-		return this.col;
-	}
-	
+	//correctly parses an integer into coordinates with special care for values < 10 
 	public static Coordinates parseIntoCoordinates(int cell) {
 		String strCell = Integer.toString(cell);
 		int i;
@@ -46,5 +39,22 @@ public class Coordinates {
 		Coordinates coordinate = new Coordinates(i, j);
 		
 		return coordinate;
+	}
+	
+	//getters and setters for this class
+	public void set_row(int row) {	
+		this.row = row;
+	}
+	
+	public void set_col(int col) {
+		this.col = col;
+	}
+	
+	public int get_row(){
+		return this.row;
+	}
+	
+	public int get_col(){
+		return this.col;
 	}
 }

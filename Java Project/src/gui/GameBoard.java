@@ -12,13 +12,23 @@ import javax.swing.JOptionPane;
 
 import gameLogic.*;
 
+/*
+ * Allows for the grids to be created 
+ * Gets information about the player and method of ship placement
+ * Handles coloring of buttons and labels part of the grids
+ */
+
 public class GameBoard {
+	
+	//create variables and objects for this class
 	private final int BOARD_SIZE;
 	private JPanel board;
 	private JButton[][] btnList;
 	
 	private boolean shipManualShipGeneration;
 
+	
+	//defines a game board 
 	public GameBoard(int board_size) {
 		this.BOARD_SIZE = board_size;
 		this.setBoard(new JPanel());
@@ -26,6 +36,8 @@ public class GameBoard {
 		this.setBtnList(new JButton[this.getBoardSize()][this.getBoardSize()]);
 	}
 	
+	
+	//creates a 10x10 grid of JButtons and sets initial look
 	public void createGrid() {
 			for (int i = 0; i < this.getBoardSize(); i++) {
 				for (int j = 0; j < this.getBoardSize(); j++) {
@@ -39,6 +51,8 @@ public class GameBoard {
 			}
 	}
 	
+	
+	//initializes the process of the game and offers manual vs. automatic placement of the player's ships
 	public void startBoard() {
 		String name = askName();
 		String welcome = "Welcome " + name + "! \n" + "Before we can start you'll first have to place your boats.";
@@ -53,30 +67,36 @@ public class GameBoard {
 		}
 		else {
 			this.shipManualShipGeneration = false;
-		} 
-		
-		
+		} 	
 	}
 	
+	
+	//asks for the name of the player
 	private String askName() {
 		String name = JOptionPane.showInputDialog("What is your name?");
 		return name;
 	}
 	
+	
+	//invokes an error messages when called
 	public static void printError() {
 		JOptionPane.showMessageDialog(null, "The boat was not placed correctly, please choose another position.");
 	}
 	
 	
-	//sets the JButton Color of a JButton to blue for where a ship is.
+	//sets the button background to blue when called
 	public void setBtnColor(int row, int col) { 		
 		this.getBtnList()[row][col].setBackground(Color.blue);
 	}
 	
+	
+	//sets the label color to white when called
 	public void setLblColor(int row, int col) { 		
 		this.getBtnList()[row][col].setForeground(Color.white);
 	}
 	
+	
+	//gets the coordinates from the placed ships and calls the methods to color btn and lbl
 	public void placeShipGuiBoard(Ship ship) {
 		for (int i = ship.getStartco().get_row(); i <= ship.getEndco().get_row(); i++) {
 			for (int j = ship.getStartco().get_col(); j <= ship.getEndco().get_col(); j++) {
@@ -86,6 +106,8 @@ public class GameBoard {
 		}
 	}
 	
+	
+	//allows for the buttons of a board to be disabled and enabled 
 	public void enableBtns(boolean bln, int[][] board) {
 		for (int i = 0; i < this.getBoardSize(); i++) {
 			for (int j = 0; j < this.getBoardSize(); j++) {
@@ -96,6 +118,8 @@ public class GameBoard {
 		}
 	}
 	
+	
+	//getters and setters for elements in this class
 	public JPanel getBoard() {
 		return this.board;
 	}
@@ -120,11 +144,3 @@ public class GameBoard {
 		this.btnList = list;
 	}
 }
-	
-
-	
-	
-	
-
-
-

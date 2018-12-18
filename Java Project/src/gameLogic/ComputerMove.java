@@ -21,10 +21,12 @@ public class ComputerMove {
 	//Array list to keep track of the moves made
 	private ArrayList<Integer> shotsFired = new ArrayList<Integer>();
 	
+	
 	//empty constructor used in the Game class to call the method compMove from this class
 	public ComputerMove() {
 		
 	}
+	
 	
 	//Gets and returns the computer move based on the difficulty
 	public int compMove(int dificulty) {
@@ -56,13 +58,11 @@ public class ComputerMove {
 	
 	
 	/*
-	 * 
 	 * Hunt & Target algorithm implementation
 	 * Generates random moves until hit is registered
 	 * When a hit is registered go down, up, right or left to take out the entire ship
 	 * When looped through this sequence and no hits anymore get new random moves until a new hit is registered
 	 * This can be made more efficient by checking the diagonals from large -> small when no hits are made
-	 * 
 	 */
 	public int algorithmOne() {
 		boolean validLoc = false;

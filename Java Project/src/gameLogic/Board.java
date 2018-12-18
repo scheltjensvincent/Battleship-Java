@@ -2,7 +2,15 @@ package gameLogic;
 
 import java.util.*;
 
+/*
+ * Allows for logic boards to be created and assigns 1 for the coordinates with parts of a ship,
+ * -1 when a ship is hit and 9 when a shot was fired but it was a miss. The remaining locations are initialized to 0.
+ * Checks the constraints for ship placement and checks hit / miss for the moves made.
+ */
+
 public class Board {
+	
+	//defining variables and objects
 	private final int BOARD_SIZE;
 	private final int MAX_SCORE;
 	private int[][] board;
@@ -22,13 +30,6 @@ public class Board {
 		this.MAX_SCORE = max_score;
 	}
 	
-	public int[][] getBoard() {
-		return this.board;
-	}
-	
-	public int getOppenentScore() {
-		return this.scoreOpponent;
-	}
 	
 	public ArrayList<Ship> getShips(){
 		ArrayList<Ship> ships = new ArrayList<Ship>();
@@ -39,11 +40,14 @@ public class Board {
 		ships.add(destroyer);
 		return ships;
 	}
+
 	
 	public void incrementScoreOpponent() {
 		this.scoreOpponent++;
 	}
 	
+	
+	//adds a ship to the arraylist when no constraints are violated and assigns a value of 1 to the logic boards for all the ship coordinates
 	public boolean addShip(Ship ship) {
 		if (checkConstraints(ship) == true) {
 			for (int i = ship.getStartco().get_row(); i <= ship.getEndco().get_row(); i++) {
@@ -57,9 +61,10 @@ public class Board {
 		else {
 			return false;
 		}	
-		
 	}
 	
+	
+	//checks out of bound placement and overlap of ships about to be placed
 	private boolean checkConstraints(Ship newShip) {
 		if (newShip.getStartco().get_row() < 0) {
 			return false;
@@ -88,6 +93,8 @@ public class Board {
 		return true;
 	}
 	
+	
+	//checks whether a certain move / coordinate is a hit or a miss and avoids buttons being responsive after hits / misses
 	public boolean hit(Coordinates coordinate) {
 		if (board[coordinate.get_row()][coordinate.get_col()] == 1) {
 			this.getBoard()[coordinate.get_row()][coordinate.get_col()] = -1; //-1 is a hit
@@ -101,6 +108,8 @@ public class Board {
 		
 	}
 	
+	
+	//defines when player or computer 
 	public boolean opponentWon() {
 		if (this.getOppenentScore() == this.MAX_SCORE) {
 			return true;
@@ -108,6 +117,16 @@ public class Board {
 		else {
 			return false;
 		}
+	}
+	
+	
+	//getters and setters for this class
+	public int[][] getBoard() {
+		return this.board;
+	}
+	
+	public int getOppenentScore() {
+		return this.scoreOpponent;
 	}
 	
 }

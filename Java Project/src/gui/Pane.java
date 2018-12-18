@@ -8,9 +8,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.*;
 
+/*
+ * Here the pane that serves as content for the JFrame is created and filled with all elements / objects.
+ * The constraints for placements are set and listeners are added where needed.
+ * When all placement is finished a call is made to start the program.
+ */
+
 public class Pane extends JPanel {
 	private static final long serialVersionUID = -7518568006313720524L;
 	
+	//set and initialize (some) of the objects
 	private JButton btnStart;
 	private JButton btnStop;
 	private JButton btnRestart;
@@ -29,6 +36,7 @@ public class Pane extends JPanel {
 	private Game game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore(), getHighScore());
 	
 	
+	//Defines the layout and overall dimension
 	public Pane() {
 		setLayout(new GridBagLayout());
 		setPreferredSize(new Dimension(700, 800));
@@ -36,6 +44,8 @@ public class Pane extends JPanel {
 		initialize();
 	}
 	
+	
+	//Creates and structures all visual content (grids, buttons, labels)
 	public void initialize() {
 		GridBagConstraints paneConstraints = new GridBagConstraints();
 		
@@ -43,12 +53,12 @@ public class Pane extends JPanel {
 		computerPanel.createGrid();
 		humanPanel.createGrid();
 		
-		//create buttons
+		//initialize buttons
 		btnStart = new JButton("Start");
 		btnStop = new JButton("Stop");
 		btnRestart = new JButton("Restart");
 		
-		//methods for the visibility and enabling should still be written
+		//Set objects to (in)visible / (dis)(en)abled and add listeners
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
 				humanPanel.getBoard().setVisible(true);
@@ -96,7 +106,7 @@ public class Pane extends JPanel {
 		lblDivider.setOpaque(true);
 		lblDivider.setBackground(Color.black);
 		
-		//fill in the first column with the boards and divider
+		//fill in the first column with the boards, labels and divider
 		paneConstraints.gridx = 0;
 		paneConstraints.gridy = 0;
 		add(welcomeOfGame, paneConstraints);
@@ -163,6 +173,8 @@ public class Pane extends JPanel {
 		game.getLblHumanScore().setVisible(false);
 	}
 	
+	
+	//Method that resets the game when restart is pressed
 	public void reset() {
 		SwingUtilities.invokeLater(new Runnable() {
 			   public void run() {
@@ -176,12 +188,13 @@ public class Pane extends JPanel {
 				   removeAll();
 				   repaint();
 				   revalidate();
-		
 				   initialize();
 			   }
 		});
 	}
 	
+
+	//getters and setter for different elements in this class
 	public GameBoard getHumanPanel() {
 		return this.humanPanel;
 	}
@@ -202,8 +215,3 @@ public class Pane extends JPanel {
 		return this.lblHighScore;
 	}
 }
-
-
-
-
-

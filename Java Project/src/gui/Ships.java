@@ -5,6 +5,11 @@ import javax.swing.JOptionPane;
 import gameLogic.Coordinates;
 import gameLogic.Ship;
 
+/*
+ * Gui elements that obtain the initial cell and direction for ship placement
+ * When a ship is entered by the player coordinates get created and returned as a ship
+ */
+
 public class Ships {
 	public static int getInitialCell() { //instead of getting 1 value here, get the x and y values
 		int cellValue = 0;
@@ -33,6 +38,8 @@ public class Ships {
 		return cellValue;
 	}
 	
+	
+	//gets the direction from the user for the ship to be placed in
 	public static int getDirection() {
 		int direction = 0;
 		boolean validDir = false; 
@@ -61,11 +68,14 @@ public class Ships {
 	}
 	
 	
+	//asks the player to place a ship and creates the coordinates based on direction and initial cell
 	public static Ship getOneShip(int length) {
 		Ship ship;
 		ship = new Ship();
+		int nrShip = 5 - length;
+		String[] names = {"Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"};
 		
-		JOptionPane.showMessageDialog(null, "Ship " + " exists out of: "  + length + " blocks");
+		JOptionPane.showMessageDialog(null, names[nrShip] + " exists out of: "  + length + " blocks");
 		
 		Coordinates initialCo = Coordinates.parseIntoCoordinates(getInitialCell());
 		int direction = getDirection();
@@ -104,8 +114,3 @@ public class Ships {
 	}
 	
 }
-		
-	
-		
-
-

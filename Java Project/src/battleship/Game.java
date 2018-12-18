@@ -44,7 +44,7 @@ public class Game {
 	private JButton[][] btnList;
 	
 	
-	//Gathers all objects from the Pane class that will be need to be updated based on events in this class
+	//Gathers all objects from the Pane class that will need to be updated based on events in this class
 	public Game(GameBoard computerPanel, GameBoard humanPanel, JLabel humanScore, JLabel computerScore, JLabel highScore) {
 		this.computerPanel = computerPanel;
 		this.humanPanel = humanPanel;
@@ -55,7 +55,7 @@ public class Game {
 	}
 	
 	
-	//Starts the program
+	//Starts the program and updates the highscore
 	public void startProgram() {
 		initializeGame();
 		difficulty = difficulty();
@@ -213,6 +213,7 @@ public class Game {
 		return value;
 	}
 	
+	
 	//set the color of a button to red when a ship is hit
 	public void hit(JButton btn) {
 		btn.setBackground(Color.red);
@@ -245,6 +246,8 @@ public class Game {
 		scoreFile.printScore(finalPlayerScore(status)); 
 	}
 	
+	
+	//method that calculates and returns the final score
 	private int finalPlayerScore(int status) {
 		int finalScore = 0;
 		int multiplicator = 0;
@@ -258,10 +261,13 @@ public class Game {
 		
 	}
 	
+	
+	//calculates with how many hits ahead the player won 
 	private int playerAhead() {
 		int scoreAhead = gameLogicComputerBoard.getOppenentScore()-gameLogicHumanBoard.getOppenentScore();
 		return scoreAhead;
 	}
+	
 	
 	//Getters and setters for different objects from this class
 	public static int getBoardSize() {
