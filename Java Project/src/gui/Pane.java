@@ -16,13 +16,13 @@ public class Pane extends JPanel {
 	private JButton btnRestart;
 	private JLabel lblCompScore = new JLabel("Computer's score: 0"); 
 	private JLabel lblPlayerScore =  new JLabel("Your score: 0");
-	private JLabel lblPreviousScores = new JLabel("Previous Scores:");
+	private JLabel lblHighScores = new JLabel("Current highscore:");
 	private JLabel welcomeOfGame; 
 	
 	private GameBoard computerPanel = new GameBoard(Game.getBoardSize());
 	private GameBoard humanPanel = new GameBoard(Game.getBoardSize());
 	
-	private Game game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore(), getPreviousScores());
+	private Game game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore(), getHighScores());
 	
 	
 	public Pane() {
@@ -145,8 +145,8 @@ public class Pane extends JPanel {
 				   humanPanel = new GameBoard(Game.getBoardSize());
 				   lblCompScore = new JLabel("Computer's score: 0"); 
 				   lblPlayerScore =  new JLabel("Your score: 0");
-				   lblPreviousScores = new JLabel("Previous Scores:");
-				   game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore(), getPreviousScores());
+				   lblHighScores = new JLabel("Previous Scores:");
+				   game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore(), getHighScores());
 				  
 				   removeAll();
 				   repaint();
@@ -173,8 +173,8 @@ public class Pane extends JPanel {
 		return this.lblCompScore;
 	}
 	
-	public JLabel getPreviousScores() {
-		return this.lblPreviousScores;
+	public JLabel getHighScores() {
+		return this.lblHighScores;
 	}
 }
 

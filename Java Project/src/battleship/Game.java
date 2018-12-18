@@ -31,7 +31,7 @@ public class Game {
 	
 	private JLabel lblHumanScore;
 	private JLabel lblComputerScore;
-	private JLabel lblPreviousScores;
+	private JLabel lblHighScores;
 	
 	private Board gameLogicComputerBoard = new Board(BOARD_SIZE, MAX_SCORE);
 	private Board gameLogicHumanBoard = new Board(BOARD_SIZE, MAX_SCORE);
@@ -45,13 +45,13 @@ public class Game {
 	
 	
 	//Gathers all objects from the Pane class that will be need to be updated based on events in this class
-	public Game(GameBoard computerPanel, GameBoard humanPanel, JLabel humanScore, JLabel computerScore, JLabel previousScores) {
+	public Game(GameBoard computerPanel, GameBoard humanPanel, JLabel humanScore, JLabel computerScore, JLabel highScores) {
 		this.computerPanel = computerPanel;
 		this.humanPanel = humanPanel;
 		this.btnList = computerPanel.getBtnList();
 		this.lblHumanScore = humanScore;
 		this.lblComputerScore = computerScore;
-		this.lblPreviousScores = previousScores;
+		this.lblHighScores = highScores;
 	}
 	
 	
@@ -229,7 +229,8 @@ public class Game {
 		} else if (status == 0) {
 		JOptionPane.showMessageDialog(null, "Snap! You Lost! Better luck next time! Press restart to start over.");
 		}
-		scoreFile.printScore("Name", finalPlayerScore(status)); //get the exact name here
+		scoreFile.printScore(finalPlayerScore(status)); 
+		scoreFile.highScore();
 	}
 	
 	private int finalPlayerScore(int status) {
