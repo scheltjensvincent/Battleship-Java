@@ -1,6 +1,7 @@
 package battleship;
 
 import javax.swing.JButton;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -13,7 +14,14 @@ import javax.swing.SwingUtilities;
 import gameLogic.*;
 import gui.*;
 
+/* 
+ * In the Game class the game loop is handled
+ * All actions taken and input registered get checked in the game logic and updated in the gui elements
+ */
+
 public class Game {
+	
+	//declaration and partial initialization of the variables or objects needed in this class
 	private final static int BOARD_SIZE = 10;
 	private final int[] SHIP_SIZES = new int[] {5, 4, 3, 3, 2};
 	private final int MAX_SCORE = 17;
@@ -32,6 +40,8 @@ public class Game {
 	private int difficulty;
 	private JButton[][] btnList;
 	
+	
+	//Gathers all objects from the Pane class that will be need to be updated based on events in this class
 	public Game(GameBoard computerPanel, GameBoard humanPanel, JLabel humanScore, JLabel computerScore) {
 		this.computerPanel = computerPanel;
 		this.humanPanel = humanPanel;
@@ -40,6 +50,8 @@ public class Game {
 		this.lblComputerScore = computerScore;
 	}
 	
+	
+	//Starts the program
 	public void startProgram() {
 		initializeGame();
 		difficulty = difficulty();
@@ -47,6 +59,7 @@ public class Game {
 	}
 	
 	
+	//Allows for all the ships to be added to both the gui and logic boards for both computer and player
 	public void initializeGame() {
 		this.humanPanel.startBoard();
 		
@@ -58,14 +71,12 @@ public class Game {
 					if (this.gameLogicHumanBoard.addShip(guiShip) == true) {
 						this.humanPanel.placeShipGuiBoard(guiShip);	
 						success = true;
-					}
-					else {
+					} else {
 						GameBoard.printError();
 					}	
 				} while(!success);
 			}
-		}
-		else {
+		} else {
 			for (int i = 0; i < this.SHIP_SIZES.length; i++) {	
 				boolean success = false;
 				do {
@@ -94,6 +105,10 @@ public class Game {
 		}
 	}
 	
+
+	//Gets the player move by listening to input actions in the form of clicks 
+	//checks for hit or miss using the logic board and updates the score
+	//Disables the computer board after a fired shot and calls for a computer move
 	public void addComputerEventListeners() {
 	    ActionListener listener = new ActionListener() {
 	        @Override
@@ -102,8 +117,7 @@ public class Game {
 				Coordinates location = Coordinates.parseIntoCoordinates(Integer.parseInt(btn.getText()));
 					if(getGameLogicComputerBoard().hit(location)) {		 
 						hit(btn);
-					}
-					else {
+					} else {
 						miss(btn);
 					}
 					
@@ -130,6 +144,8 @@ public class Game {
 		}
 	}
 	
+	
+	//Gets the computer move, checks for hit or miss using the logic board and updates the score
 	public void computerMove(int difficulty) {
 		int move = compMove.compMove(difficulty);
 		Coordinates location = Coordinates.parseIntoCoordinates(move);
@@ -137,8 +153,7 @@ public class Game {
 		if(getGameLogicHumanBoard().hit(location)) {		 
 			hit(btn);
 			compMove.hit(true);
-		}
-		else {
+		} else {
 			miss(btn);
 			compMove.hit(false);
 		}
@@ -151,13 +166,15 @@ public class Game {
 
 		
 		if(gameLogicHumanBoard.opponentWon()) {
-			gameOver(0); //change the functionality
+			gameOver(0);
 		}
-	
+		
 		this.getComputerPanel().enableBtns(true, gameLogicComputerBoard.getBoard());
 	}
 	
 	
+	//Ask for the desired difficulty (defaults to 1 if none is given)
+	//This will be used to decide from which algorithm the computer should get its move
 	public int difficulty() {
 		int value = 0;
 		boolean validDificulty = false;
@@ -180,32 +197,37 @@ public class Game {
 				value = 1;
 				validDificulty = true;
 			}
-			
 		}
-	return value;
+		return value;
 	}
 	
-	
+	//set the color of a button to red when a ship is hit
 	public void hit(JButton btn) {
 		btn.setBackground(Color.red);
 		btn.setOpaque(true);
 		btn.setEnabled(false);
 	}
+	
+	
+	//set the color of a button to white when no ship is hit
 	public void miss(JButton btn) {
 		btn.setBackground(Color.white);
 		btn.setOpaque(true);
 		btn.setEnabled(false);
 	}
 	
+	
+	//Display that the game is over and who has won
 	public void gameOver(int status) {
 		if(status == 1) {
-		JOptionPane.showMessageDialog(null, "Good Job! You won the game!");
+		JOptionPane.showMessageDialog(null, "Good Job! You won the game! Press 'restart' to start over");
 		} else if (status == 0) {
-		JOptionPane.showMessageDialog(null, "Snap! You Lost! Better luck next time!");
+		JOptionPane.showMessageDialog(null, "Snap! You Lost! Better luck next time! Press 'restart' to start over.");
 		}
-		//resetGame()
 	}
 	
+	
+	//Getters and setters for different objects from this class
 	public static int getBoardSize() {
 		return BOARD_SIZE;
 	}

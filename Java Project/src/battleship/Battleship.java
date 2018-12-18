@@ -4,7 +4,13 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import gui.Pane;
 
+/*
+ * Initialization of the JFrame and setting the parameters 
+ * A pane is added as the content and visualized
+ */
+
 public class Battleship {
+	
 	
 	public static void main(String[] args) {
 		JFrame mainFrame = new JFrame();

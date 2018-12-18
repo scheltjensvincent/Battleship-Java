@@ -73,7 +73,7 @@ public class Pane extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			//humanPanel.resetBoard();
 			//computerPanel.resetBoard();
-			resetBoard();
+			reset();
 			}	
 		});
 		
@@ -145,7 +145,7 @@ public class Pane extends JPanel {
 		
 	}
 	
-	public void resetBoard() {
+	public void reset() {
 		computerPanel = new GameBoard(Game.getBoardSize());
 		humanPanel = new GameBoard(Game.getBoardSize());
 		game = new Game(getComputerPanel(), getHumanPanel(), getHumanScore(), getComputerScore());

@@ -3,8 +3,13 @@ package gameLogic;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ComputerMove {
+/*
+ * Based on the difficulty selected by the player the computer moves are generated here
+ */
 
+public class ComputerMove {
+	
+	//initializing variables
 	private int compMove;
 	private int algoMove = 0;
 	private boolean hit;
@@ -13,14 +18,15 @@ public class ComputerMove {
 	private boolean left;
 	private boolean right;
 	
+	//Array list to keep track of the moves made
 	private ArrayList<Integer> shotsFired = new ArrayList<Integer>();
 	
-	
+	//empty constructor used in the Game class to call the method compMove from this class
 	public ComputerMove() {
 		
 	}
 	
-
+	//Gets and returns the computer move based on the difficulty
 	public int compMove(int dificulty) {
 		if(dificulty == 1) {
 			compMove = randomValue();
@@ -31,7 +37,7 @@ public class ComputerMove {
 		return compMove;
 	}
 	
-	
+	//Random 
 	public int randomValue() {
 		boolean validLoc = false;
 		int randMove = 0;
@@ -49,6 +55,12 @@ public class ComputerMove {
 	}
 	
 	
+	/*
+	 * Hunt & Target algorithm implementation
+	 * Generates random moves until hit is registered
+	 * When a hit is registered go down, up, right or left to take out the entire ship
+	 * When looped through this sequence and no hits anymore get new random moves until a new hit is registered
+	 */
 	public int algorithmOne() {
 		boolean validLoc = false;
 		while(!validLoc) { // this
@@ -85,8 +97,9 @@ public class ComputerMove {
 		}
 	return algoMove;
 	}
-
 	
+
+	//Check whether a move hit a ship or not and act accordingly
 	public void hit(boolean hitShot) {
 		if(hitShot) {
 			hit = true;
@@ -96,6 +109,8 @@ public class ComputerMove {
 	}
 	
 	
+	//When invoked passes a move that coincides with the position left from the prior move
+	//Gets called last in the algorithmOne() method so when this would go under 0 a new random move is passed
 	private int left() {
 		down = false;
 		up = false;
@@ -114,6 +129,8 @@ public class ComputerMove {
 	}
 
 	
+	//When invoked passes a move that coincides with the position right from the prior move
+	//invokes left() when moves over 99 would be passed
 	private int right() {
 		down = false;
 		up = false;
@@ -133,6 +150,8 @@ public class ComputerMove {
 	}
 
 
+	//When invoked passes a move that coincides with the position upwards from the prior move
+	//when moves under zero would be passed right() is invoked
 	private int up() {
 		down = false;
 		up = true;
@@ -146,13 +165,16 @@ public class ComputerMove {
 		
 			if(algoMove < 0) {
 				algoMove += 10;
-				algoMove = getRandNum(0,99);
+				//algoMove = getRandNum(0,99); // this was a mistake, makes more sense to go and check right here
+				right();
 			}
 		}	
 		return algoMove;
 	}
+	
 
-
+	//When invoked passes a move that coincides with the position downwards from the prior move
+	//When moves under zero would be passed up() is invoked
 	private int down() {
 		down = true;
 		up = false;
@@ -173,6 +195,7 @@ public class ComputerMove {
 	}
 	
 	
+	//makes an initial check for the move that is about to be passed not to be already made before
 	public boolean validLoc(int a) {
 		for(int i : shotsFired) {
 			if(i == a) {
@@ -185,11 +208,13 @@ public class ComputerMove {
 		return true;
 	}
 	
+	
 	public int getCompMove() {
 		return this.compMove;
 	}
 	
-		
+	
+	//random number generated and initializes the booleans all to false	
 	private int getRandNum(int min, int max) {
 		down = false;
 		up = false;

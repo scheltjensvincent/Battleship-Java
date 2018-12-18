@@ -75,10 +75,6 @@ public class GameBoard {
 		JOptionPane.showMessageDialog(null, "The boat was not placed correctly, please choose another position.");
 	}
 	
-	public void resetBoard() {
-		
-	}
-	
 	
 	//sets the JButton Color of a JButton to blue for where a ship is.
 	public void setBtnColor(int row, int col) { 		
