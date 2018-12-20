@@ -12,6 +12,7 @@ public class ComputerMove {
 	//initializing variables
 	private int compMove;
 	private int algoMove = 0;
+	private int count;
 	private boolean hit;
 	private boolean down;
 	private boolean up;
@@ -24,7 +25,6 @@ public class ComputerMove {
 	
 	//empty constructor used in the Game class to call the method compMove from this class
 	public ComputerMove() {
-		
 	}
 	
 	
@@ -40,7 +40,7 @@ public class ComputerMove {
 	}
 	
 	//Random value generation and check if already used
-	public int randomValue() {
+	private int randomValue() {
 		boolean validLoc = false;
 		int randMove = 0;
 		while(!validLoc) {
@@ -64,7 +64,7 @@ public class ComputerMove {
 	 * When looped through this sequence and no hits anymore get new random moves until a new hit is registered
 	 * This can be made more efficient by checking the diagonals from large -> small when no hits are made
 	 */
-	public int algorithmOne() {
+	private int algorithmOne() {
 		boolean validLoc = false;
 		while(!validLoc) { // this
 			if(!hit && !down && !up && !left && !right) {
@@ -78,7 +78,7 @@ public class ComputerMove {
 			} else if (hit && up) {
 				algoMove = up();
 			} else if (!hit && up) {
-				algoMove +=10; // get back to initial hit
+				algoMove += (10 * count) ; // get back to last hit
 				algoMove = right();
 			} else if (hit && right) {
 				algoMove = right();
@@ -119,12 +119,26 @@ public class ComputerMove {
 		up = false;
 		left = true;
 		right = false;
+		count = 0;
+		
+		Coordinates oldLoc = null;
+		Coordinates newLoc = null;
 		
 		while(!validLoc(algoMove)) {
 			if(algoMove >= 0 && algoMove <= 99) {
 				algoMove -= 1;
 			}
+
+			
 			if(algoMove < 0) {
+				algoMove = getRandNum(0, 99);
+			}
+			
+			newLoc = Coordinates.parseIntoCoordinates(algoMove);
+			oldLoc = Coordinates.parseIntoCoordinates(algoMove + 1);
+			
+			if(newLoc.get_row() < oldLoc.get_row()){
+				algoMove += 1;
 				algoMove = getRandNum(0, 99);
 			}
 		}
@@ -139,15 +153,29 @@ public class ComputerMove {
 		up = false;
 		left = false;
 		right = true;
+		count = 0;
+		
+		Coordinates oldLoc = null;
+		Coordinates newLoc = null;
 		
 		while(!validLoc(algoMove)) {
 			if(algoMove >= 0 && algoMove <= 99) {
 				algoMove += 1;
 			}
 			
-			if(algoMove > 99) {
+			
+			if(algoMove > 99 ) {
 				left();
 			}
+			
+			newLoc = Coordinates.parseIntoCoordinates(algoMove);
+			oldLoc = Coordinates.parseIntoCoordinates(algoMove - 1);
+			
+			if(newLoc.get_row() > oldLoc.get_row()){
+				algoMove -= 1;
+				left();
+			}
+			
 		}
 		return algoMove;
 	}
@@ -164,13 +192,15 @@ public class ComputerMove {
 		while(!validLoc(algoMove)) {
 			if(algoMove >= 0 && algoMove < 100) {
 				algoMove -= 10;
+				
 			}
-		
+			
 			if(algoMove < 0) {
 				algoMove += 10;
 				right();
 			}
-		}	
+		}
+		count ++;
 		return algoMove;
 	}
 	
@@ -182,12 +212,14 @@ public class ComputerMove {
 		up = false;
 		left = false;
 		right = false;
+		count = 0;
 		
 		while(!validLoc(algoMove)) {
 			
 			if(algoMove >= 0 && algoMove < 100) {
 				algoMove += 10;
 			}
+			
 			if(algoMove > 99) {
 				algoMove -= 10;
 				up();
@@ -198,7 +230,7 @@ public class ComputerMove {
 	
 	
 	//makes an initial check for the move that is about to be passed not to be already made before
-	public boolean validLoc(int a) {
+	private boolean validLoc(int a) {
 		for(int i : shotsFired) {
 			if(i == a) {
 				return false;
