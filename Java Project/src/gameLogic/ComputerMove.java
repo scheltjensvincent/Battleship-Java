@@ -8,7 +8,7 @@ import java.util.Random;
  */
 
 public class ComputerMove {
-	
+
 	//initializing variables
 	private int compMove;
 	private int algoMove = 0;
@@ -18,16 +18,16 @@ public class ComputerMove {
 	private boolean up;
 	private boolean left;
 	private boolean right;
-	
+
 	//Array list to keep track of the moves made
 	private ArrayList<Integer> shotsFired = new ArrayList<Integer>();
-	
-	
+
+
 	//empty constructor used in the Game class to call the method compMove from this class
 	public ComputerMove() {
 	}
-	
-	
+
+
 	//Gets and returns the computer move based on the difficulty
 	public int compMove(int dificulty) {
 		if(dificulty == 1) {
@@ -38,7 +38,7 @@ public class ComputerMove {
 		}
 		return compMove;
 	}
-	
+
 	//Random value generation and check if already used
 	private int randomValue() {
 		boolean validLoc = false;
@@ -52,11 +52,11 @@ public class ComputerMove {
 			}
 		}
 		shotsFired.add(randMove);
-		
+
 		return randMove;
 	}
-	
-	
+
+
 	/*
 	 * Hunt & Target algorithm implementation
 	 * Generates random moves until hit is registered
@@ -98,9 +98,9 @@ public class ComputerMove {
 				validLoc = true;
 			}
 		}
-	return algoMove;
+		return algoMove;
 	}
-	
+
 
 	//Check whether a move hit a ship
 	public void hit(boolean hitShot) {
@@ -110,8 +110,8 @@ public class ComputerMove {
 			hit = false;
 		}
 	}
-	
-	
+
+
 	//When invoked passes a move that coincides with the position left from the prior move
 	//Gets called last in the algorithmOne() method so when this would go under 0 a new random move is passed
 	private int left() {
@@ -120,32 +120,32 @@ public class ComputerMove {
 		left = true;
 		right = false;
 		count = 0;
-		
+
 		Coordinates oldLoc = null;
 		Coordinates newLoc = null;
-		
+
 		while(!validLoc(algoMove)) {
 			if(algoMove >= 0 && algoMove <= 99) {
 				algoMove -= 1;
 			}
 
-			
 			if(algoMove < 0) {
 				algoMove = getRandNum(0, 99);
 			}
-			
+
 			newLoc = Coordinates.parseIntoCoordinates(algoMove);
 			oldLoc = Coordinates.parseIntoCoordinates(algoMove + 1);
-			
+
 			if(newLoc.get_row() < oldLoc.get_row()){
 				algoMove += 1;
 				algoMove = getRandNum(0, 99);
 			}
+
 		}
 		return algoMove;
 	}
 
-	
+
 	//When invoked passes a move that coincides with the position right from the prior move
 	//invokes left() when moves over 99 would be passed
 	private int right() {
@@ -154,28 +154,27 @@ public class ComputerMove {
 		left = false;
 		right = true;
 		count = 0;
-		
+
 		Coordinates oldLoc = null;
 		Coordinates newLoc = null;
-		
+
 		while(!validLoc(algoMove)) {
 			if(algoMove >= 0 && algoMove <= 99) {
 				algoMove += 1;
 			}
-			
-			
+
 			if(algoMove > 99 ) {
 				left();
 			}
-			
+
 			newLoc = Coordinates.parseIntoCoordinates(algoMove);
 			oldLoc = Coordinates.parseIntoCoordinates(algoMove - 1);
-			
+
 			if(newLoc.get_row() > oldLoc.get_row()){
 				algoMove -= 1;
 				left();
 			}
-			
+
 		}
 		return algoMove;
 	}
@@ -188,13 +187,13 @@ public class ComputerMove {
 		up = true;
 		left = false;
 		right = false;
-		
+
 		while(!validLoc(algoMove)) {
 			if(algoMove >= 0 && algoMove < 100) {
 				algoMove -= 10;
-				
+
 			}
-			
+
 			if(algoMove < 0) {
 				algoMove += 10;
 				right();
@@ -203,7 +202,7 @@ public class ComputerMove {
 		count ++;
 		return algoMove;
 	}
-	
+
 
 	//When invoked passes a move that coincides with the position downwards from the prior move
 	//When moves under zero would be passed up() is invoked
@@ -213,13 +212,13 @@ public class ComputerMove {
 		left = false;
 		right = false;
 		count = 0;
-		
+
 		while(!validLoc(algoMove)) {
-			
+
 			if(algoMove >= 0 && algoMove < 100) {
 				algoMove += 10;
 			}
-			
+
 			if(algoMove > 99) {
 				algoMove -= 10;
 				up();
@@ -227,8 +226,8 @@ public class ComputerMove {
 		}
 		return algoMove;
 	}
-	
-	
+
+
 	//makes an initial check for the move that is about to be passed not to be already made before
 	private boolean validLoc(int a) {
 		for(int i : shotsFired) {
@@ -236,18 +235,18 @@ public class ComputerMove {
 				return false;
 			}
 			if(a < 0 || a > 99) {
-			return false;
+				return false;
 			}
 		}
 		return true;
 	}
-	
-	
+
+
 	public int getCompMove() {
 		return this.compMove;
 	}
-	
-	
+
+
 	//random number generated and initializes the booleans all to false	
 	private int getRandNum(int min, int max) {
 		down = false;

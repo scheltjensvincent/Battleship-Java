@@ -10,8 +10,8 @@ import gui.Pane;
  */
 
 public class Battleship {
-	
-	
+
+
 	public static void main(String[] args) {
 		JFrame mainFrame = new JFrame();
 		mainFrame.setTitle("Battleship");
@@ -21,7 +21,7 @@ public class Battleship {
 		mainFrame.setResizable(false);
 		mainFrame.pack();
 		mainFrame.setVisible(true);
-		
+
 	}
 
 }
