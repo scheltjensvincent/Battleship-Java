@@ -200,7 +200,7 @@ public class Game {
 			if (val != null) {
 				try { 
 					value = Integer.valueOf(val);
-					if (value >= 1 && value < 4) {
+					if (value >= 1 && value < 3) {
 						validDificulty = true;
 					} else {
 						JOptionPane.showMessageDialog(null, "Please enter a valid difficulty between 1 and 2");
