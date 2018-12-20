@@ -102,7 +102,7 @@ public class ComputerMove {
 	}
 	
 
-	//Check whether a move hit a ship or not and act accordingly
+	//Check whether a move hit a ship
 	public void hit(boolean hitShot) {
 		if(hitShot) {
 			hit = true;

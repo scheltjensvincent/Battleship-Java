@@ -118,9 +118,11 @@ public class Game {
 	}
 	
 
-	//Gets the player move by listening to input actions in the form of clicks 
-	//checks for hit or miss using the logic board and updates the score
-	//Disables the computer board after a fired shot and calls for a computer move
+	/*
+	 * Gets the player move by listening to input actions in the form of clicks 
+	 * Checks for hit or miss using the logic board and updates the score
+	 * Disables the computer board after a fired shot and calls for a computer move
+	 */
 	public void addComputerEventListeners() {
 	    ActionListener listener = new ActionListener() {
 	        @Override
