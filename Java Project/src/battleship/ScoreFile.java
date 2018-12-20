@@ -10,24 +10,13 @@ import java.util.Scanner;
 
 public class ScoreFile {
 	
-	File scores = new File("scores.txt");
+	File scores;
 
 	//empty constructor to create an instance of this class elsewhere
 	public ScoreFile() {
-		initFile();
+		scores = new File("scores.txt");
 	}
-
-
-	public void initFile() {
-		try {
-			PrintWriter printW = new PrintWriter(new FileWriter(scores, true));
-			printW.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-		
+	
 	
 	//method to print the final score to a text file
 	public void printScore(int finalScore) {
