@@ -16,13 +16,7 @@ public class Board {
 	private int[][] board;
 	private int scoreOpponent = 0;
 
-	private Ship carrier;
-	private Ship battleship;
-	private Ship cruiser;
-	private Ship submarine;
-	private Ship destroyer;
-
-	ArrayList<Ship> ships = new ArrayList<Ship>();
+	private ArrayList<Ship> ships = new ArrayList<Ship>();
 	
 	
 	//defines a board
@@ -34,13 +28,7 @@ public class Board {
 
 
 	public ArrayList<Ship> getShips(){
-		ArrayList<Ship> ships = new ArrayList<Ship>();
-		ships.add(carrier);
-		ships.add(battleship);
-		ships.add(cruiser);
-		ships.add(submarine);
-		ships.add(destroyer);
-		return ships;
+		return this.ships;
 	}
 
 
